@@ -9,6 +9,7 @@ export function ShowAllMovies(
     ) {
 
       const history = useHistory();
+      const userName = localStorage.getItem('name')
 
     const[movies, setMovies] = useState([])
 
@@ -70,7 +71,7 @@ export function ShowAllMovies(
             <Nav>
             <div className="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" className="rounded-circle" />
-            <NavDropdown title="user-name">
+            <NavDropdown title={userName}>
             <NavDropdown.Item onClick={logOut}>
             <span className="d-none d-md-block ps-2">Log Out</span>
             </NavDropdown.Item>

@@ -39,7 +39,7 @@ const deleteMovie = (e) =>{
   }
 
 
-
+  const propsPageRefresh = () => props.pageRefresh()
 
     
   return (
@@ -67,7 +67,8 @@ const deleteMovie = (e) =>{
                        <EditMovies
                         {...props}
                           show={editModalShow}
-                          onHide={() => setEditModalShow(false)}s
+                          onHide={() => setEditModalShow(false)}
+                          updatePage={propsPageRefresh}
                           />
                   
                     { isAdmin && 
@@ -90,6 +91,7 @@ const deleteMovie = (e) =>{
                       <RentMoviePopup
                       {...props}
                         show={rentModalShow}
+                        updatePage={propsPageRefresh}
                         onHide={() => setRentModalShow(false)}
                         />
 

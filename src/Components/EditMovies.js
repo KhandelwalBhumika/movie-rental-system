@@ -60,7 +60,8 @@ function EditMovies(props) {
                       // title: res.dat.message
                       title: "Successfully updated!"
                   })
-                  return setMovie
+                  props.updatePage()
+                  // return setMovie
             })
               .catch((error)=>{
                   Swal2.fire({

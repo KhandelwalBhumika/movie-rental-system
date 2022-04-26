@@ -45,6 +45,7 @@ function RentMoviePopup(props) {
                 icon : res.data.status,
                 title: res.data.message
             })
+            props.updatePage()
         })
         .catch((error)=>{
             Swal2.fire({

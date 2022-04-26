@@ -71,7 +71,7 @@ function LogIn() {
                 title: res.data.message
             })   
             if(res.data.status === "success") {
-              
+              localStorage.setItem('name', res.data.name)
               localStorage.setItem('token', res.data.token)
               localStorage.setItem('role', res.data.role)
             }
