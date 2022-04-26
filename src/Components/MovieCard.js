@@ -14,7 +14,7 @@ function MovieCard(props) {
     const [editModalShow, setEditModalShow] = useState(false)
     const [rentModalShow, setRentModalShow] = useState(false)
 
-
+    const isAdmin = localStorage.getItem('role') === 'admin'
 
 const deleteMovie = (e) =>{
     e.preventDefault()
@@ -26,6 +26,7 @@ const deleteMovie = (e) =>{
                 // title: res.data.message
                 title: "Successfully deleted"
             })
+            props.pageRefresh()
         })
         .catch((error)=>{
             // this.errors = error.response.data.errors;
@@ -46,7 +47,7 @@ const deleteMovie = (e) =>{
 
          <div className="align-items-top col-4">
                      <img src={images} className="card-img-top" alt="..." />
-                     <div className="card-body" style={{backgroundColor: 'white'}}>
+                     <div className="card-body p-2" style={{backgroundColor: 'white'}}>
                         
                             <h5 className="card-text"><strong>Name:</strong> {props.name}</h5>
                             <p className="card-text"><strong>Release Date:</strong> {props.releaseDate}</p>
@@ -55,30 +56,42 @@ const deleteMovie = (e) =>{
                             <p className="card-text"><strong>Quantity: </strong>{props.quantity} </p>
                             <p className="card-text"><strong>Price: </strong>{props.price} </p>
                         
-                <button
-                        className="btn btn-primary"
+                            { 
+                      isAdmin && <button
+                        className="btn btn-primary m-2"
                         type="button"
                         variant="info"
                         onClick={() => setEditModalShow(true)}
                       > Edit Movie
-                      </button>
-                      <EditMovies
-                      {...props}
-                        show={editModalShow}
-                        onHide={() => setEditModalShow(false)}
-                        /> 
-                  <button type="button" className="btn btn-primary" onClick={deleteMovie}>Delete Movie</button>
-                  <button
+                      </button> }
+                       <EditMovies
+                        {...props}
+                          show={editModalShow}
+                          onHide={() => setEditModalShow(false)}s
+                          />
+                  
+                    { isAdmin && 
+                    <button 
+                    type="button" 
+                    className="btn btn-primary m-2" 
+                    onClick={deleteMovie}>
+                      Delete Movie
+                      </button> }
+
+                      { !isAdmin && 
+                      <button
                         className="btn btn-primary"
                         type="button"
                         variant="info"
                         onClick={() => setRentModalShow(true)}
                       > Rent Movie
-                      </button>
+                      </button> 
+                      }
                       <RentMoviePopup
                       {...props}
                         show={rentModalShow}
-                        onHide={() => setRentModalShow(false)}/>
+                        onHide={() => setRentModalShow(false)}
+                        />
 
                          
                   </div>
@@ -90,3 +103,8 @@ const deleteMovie = (e) =>{
 }
 
 export default MovieCard;
+
+
+
+
+

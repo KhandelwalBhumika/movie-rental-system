@@ -11,7 +11,6 @@ import {
   import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
   import Swal2 from "sweetalert2";
   import api from "../ApiTracker/api";
-// import axios from 'axios';
 
 
 function EditMovies(props) {
@@ -28,9 +27,16 @@ function EditMovies(props) {
     quantity: props.quantity
 })
 
+// const handleChange = (event) => {
+//   setSelectedOption(event.target.value);
+//   filter({ genre: event.target.value })
+//   // return setSelectedOption
+// };
+
   // console.log('movie date', movieDate, movie)
 
     const handleChange = event =>{
+
         const {name, value} = event.target;
         setMovie({
             ...movie,

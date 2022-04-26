@@ -5,26 +5,20 @@ import Swal2 from "sweetalert2";
 import api from "../ApiTracker/api";
 // import LogIn from './LogIn';
 import './style.css';
-// import {useHistory} from 'react-router-dom;'
-import {
+import {useHistory} from 'react-router-dom';
 
 
-  // BrowserRouter,
-    // Switch,
-    useHistory,
-    // Route,
-    // useLocation,
-  } from "react-router-dom";
+function SignUp() {
 
-function SignUp(props) {
-  // const [ isAuth, setIsAuth ] = useState(true);
-  const {history} = useHistory()
+  const history = useHistory()
+
   const [user, setUser] = useState({
              firstName: "",
              lastName: "",
              email: "",
              password: "",
-             contactNumber: ""
+             contactNumber: "",
+             role: ""
        })
 
        const handleChange = (event) => {
@@ -36,13 +30,13 @@ function SignUp(props) {
               };
 
               const registration = (e) =>{
+                console.log("sadfghg")
                 e.preventDefault()
                 console.log('user', user)
-                const {firstName, lastName, email, password, contactNumber} = user;
-                if(firstName && lastName && email && password && contactNumber){
+                const {firstName, lastName, email, password, contactNumber, role} = user;
+                if(firstName && lastName && email && password && contactNumber && role){
                     api.post("users/signUp", user)
                     .then((res)=>{
-                        console.log('res', res.data)
                         Swal2.fire({
                             icon : "success",
                             title: res.data.message
@@ -50,10 +44,11 @@ function SignUp(props) {
                         history.push('/logIn')
                     })
                     .catch((error)=>{
-                        Swal2.fire({
-                            icon : "error",
-                            title : error.response.data.message
-                        })
+                      Swal2.fire({
+                          icon : "error",
+                          title : error.message
+                          // title: "registration unsuccessfull"
+                      })
                     })
                 }
               }
@@ -91,7 +86,7 @@ function SignUp(props) {
     </div>
 
     <div className="col-12">
-      <label htmlFor="yourEmail" className="form-label">Your Email</label>
+      <label htmlFor="yourEmail" className="form-label">Email</label>
       <input type="email" name="email" className="form-control" id="yourEmail" onChange={handleChange} required />
     </div>
 
@@ -104,6 +99,29 @@ function SignUp(props) {
       <label htmlFor="yourContact" className="form-label">Contact Number</label>
       <input type="number" name="contactNumber" className="form-control" id="yourContact" onChange={handleChange} required />
     </div>
+
+      <fieldset className="row mb-3">
+      {/* <div className="col-12"> */}
+      <label>
+        <legend className="col-form-label col-sm-2 " htmlFor="role"> User is: </legend>
+        </label>
+        <div className="col-sm-10">
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="role" id="role-user" defaultValue="user" onChange={handleChange} required/>
+            <label className="form-check-label" htmlFor="role">
+              Client
+            </label>
+          </div>
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="role" id="role-admin" defaultValue="admin" onChange={handleChange} required/>
+            <label className="form-check-label" htmlFor="role">
+              Admin
+            </label>
+          </div>
+        </div>
+        {/* </div> */}
+      </fieldset>
+
 
     <div className="col-12">
       <div className="form-check">
@@ -120,7 +138,7 @@ function SignUp(props) {
       </div>
       <div className="col-12">
       <p className="small mb-0">Already have an account? 
-      <a href="/logIn" className="btn btn-primary w-100" >Log-In</a>
+      <a href="/logIn" className="btn btn-primary w-100">Log-In</a>
       </p>
       </div>
     </div>
@@ -132,7 +150,6 @@ function SignUp(props) {
     </div>
   </section>
 </div>
-</main>
 
 
 
@@ -146,6 +163,8 @@ function SignUp(props) {
   </div>
   </footer>
   {/* <!-- End Footer --> */}
+
+</main>
     </>
   )
 }

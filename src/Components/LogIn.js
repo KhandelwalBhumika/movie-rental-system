@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import Swal2 from "sweetalert2";
 import api from "../ApiTracker/api";
-import { useHistory } from "react-router-dom";
+import {useHistory} from 'react-router-dom';
+
 // import * as yup from 'yup';
 // import { yupResolver } from '@hookform/resolvers/yup';
 // import { useForm } from 'react-hook-form';
 
 
+
 function LogIn() {
 
-  const history = useHistory();
+  let history = useHistory();
   
     const [user, setUser] = useState({
         email: "" ,
@@ -54,25 +56,30 @@ function LogIn() {
     //   // const { errors } = formState;
 
 
+
       const login = (e) =>{
 
         e.preventDefault()
         const {email, password} = user;
+        console.log('e', e, 'user', user)
         if(email && password){
             api.post("users/logIn", user)
             .then((res)=>{  
+              console.log('res', res);
               Swal2.fire({
-                    icon : res.data.status,
-                    title: res.data.message
-                })   
-
-                if(res.data.status === "success") {
-                  localStorage.setItem('token', res.data.token)
-                  localStorage.setItem('role', res.data.role)
+                icon : res.data.status,
+                title: res.data.message
+            })   
+            if(res.data.status === "success") {
+              
+              localStorage.setItem('token', res.data.token)
+              localStorage.setItem('role', res.data.role)
             }
-            // .then((res) => {
-              history.push("/showAllMovies");
-            // })
+             history.push('/showAllMovies')
+            // <Router history={history}>...</Router>
+           
+                // setLoggedin("/showAllMovies")
+                
           })
             .catch((error)=>{
                 Swal2.fire({
@@ -87,6 +94,7 @@ function LogIn() {
   return (
     <> 
     <main>
+    
     <div className="container">
       <section className="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div className="container">
@@ -100,7 +108,7 @@ function LogIn() {
                     <p className="text-center small">Enter your email and password to login.</p>
                   </div>
 
-                  <form className="row g-3 needs-validation" onSubmit={login}>
+                  <form className="row g-3 needs-validation" onSubmit={login} >
 
                     <div className="col-12">
                       <label className="form-label">Email</label>
@@ -145,14 +153,17 @@ function LogIn() {
                     </div>
                     <div className="col-12">
                       <button
-                        // a href="/showAllMovies" 
-                      className="btn btn-primary w-100" type="submit">Login
-                      {/* </a> */}
+                      className="btn btn-primary w-100" type="submit" 
+                      // onClick={()=>{ if(res.data.status === "success")
+                      //   {history.push('/showAllMovies')}}
+                        // }
+                        // onClick={() => history.push('/showAllMovies')}
+                        >Login
+                      
                       </button>
                     </div>
                     <div className="col-12">
                       <p className="small mb-0">Don't have an account? 
-                      {/* <a href={SignUp}>Create an account</a> */}
                       <a href="/signUp" className="btn btn-primary w-100">Register</a>
                       </p>
                     </div>
