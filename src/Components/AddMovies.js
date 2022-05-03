@@ -1,8 +1,16 @@
 import React, {useState} from 'react';
 import Swal2 from "sweetalert2";
 import api from "../ApiTracker/api";
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import { Nav, NavDropdown } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 function AddMovies(props) {
+
+
+  const history = useHistory();
+
+  const userName = localStorage.getItem('name')
 
     const [movie, setMovie] = useState({
         name: "",
@@ -46,10 +54,16 @@ function AddMovies(props) {
             })
         }
       }
+
+      const logOut = () => {
+        localStorage.clear()
+        history.push('/logIn');
+      }
       
 
 
   return (
+
       <>
 
 
@@ -59,7 +73,7 @@ function AddMovies(props) {
         <a href="index.html" className="logo d-flex align-items-center">
             <span className="d-none d-lg-block">Bingedd!!!</span>
         </a>
-        <i className="bi bi-list toggle-sidebar-btn" />
+        {/* <i className="bi bi-list toggle-sidebar-btn" /> */}
         </div>
         <div className="search-bar">
         <form className="search-form d-flex align-items-center" method="POST" action="#">
@@ -68,19 +82,19 @@ function AddMovies(props) {
         </form>
         </div>
 
-                <nav className="header-nav ms-auto">
-        <ul className="d-flex align-items-center">
-        <div className="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
+        <nav className="header-nav ms-auto">
+          <ul className="d-flex align-items-center">
+            <Nav>
+            <div className="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" className="rounded-circle" />
-            <span className="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-           
+            <NavDropdown title={userName}>
+            <NavDropdown.Item onClick={logOut}>
+            <span className="d-none d-md-block ps-2">Log Out</span>
+            </NavDropdown.Item>
+            </NavDropdown>
             </div>
-            
-
-          {/* <!-- End Profile Iamge Icon --> */}
-            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            </ul>
-            </ul>
+            </Nav>
+          </ul>
         </nav>
     </header>
     {/* <!-- ======= Header ======= --> */}
@@ -93,80 +107,94 @@ function AddMovies(props) {
 
 
     {/* <!-- ======= Sidebar ======= --> */}
-    <div id="sidebar" className="sidebar">
-    <ul className="sidebar-nav" id="sidebar-nav">
-        <li className="nav-item">
+    {/* <div id="sidebar" className="sidebar"> */}
+    {/* <ul className="sidebar-nav" id="sidebar-nav"> */}
+        {/* <li className="nav-item">
             <a className="nav-link collapsed" href="index.html">
                 <i className="bi bi-grid" />
             <span>Dashboard</span>
             </a>
-        </li>
-        <li className="nav-item">
+        </li> */}
+        {/* <li className="nav-item">
         <div className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" >
             <i className="bi bi-menu-button-wide" /> Users
             <i className="bi bi-chevron-down ms-auto" />
         </div>
-        </li>
-        <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav"> 
+        </li> */}
+        {/* <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav"> 
         <li>
             {/* <a href=""> */}
-              <i className="bi bi-circle"></i><span>Show Movies</span>
+              {/* <i className="bi bi-circle"></i><span>Show Movies</span> */}
             {/* </a> */}
-          </li>
-          </ul>
-          </ul>
+          {/* </li> */}
+          {/* // </ul> */}
+          {/* </ul>  */}
 
 
-          <ul className="sidebar-nav" id="sidebar-nav">
-          <li className="nav-item">
-        <div className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" >
+          {/* <ul className="sidebar-nav" id="sidebar-nav">
+          <li className="nav-item"> */}
+        {/* <div className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" >
             <i className="bi bi-menu-button-wide" /> Admin
             <i className="bi bi-chevron-down ms-auto" />
-        </div>
-        <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav"> 
-        <li>
+        </div> */}
+        {/* <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav"> 
+        <li> */}
             {/* <a href=""> */}
-              <i className="bi bi-circle"></i><span>Show Movies</span>
+              {/* <i className="bi bi-circle"></i><span>Show Movies</span> */}
             {/* </a> */}
-          </li>
-          <li>
+          {/* </li> */}
+          {/* <li>
             {/* <a href="components-accordion.html"> */}
-              <i className="bi bi-circle"></i><span>Add Movies</span>
+              {/* <i className="bi bi-circle"></i><span>Add Movies</span> */}
             {/* </a> */}
-          </li>
-        </ul>
+          {/* </li> */}
+        {/* </ul>
         </li>
-    </ul>
+    </ul>  */}
     
-    <div>
+    {/* <div>
     <li className="nav-heading">Pages</li>
     {/* <li className="item"> */}
-        <a className="nav-link collapsed" href="users-profile.html">
+        {/* <a className="nav-link collapsed" href="users-profile.html">
         <i className="bi bi-person" />
         <span>Profile</span>
-        </a>
+        </a> */}
     {/* </li> */}
-    </div>
+    {/* </div> */} 
 
       {/* <!-- End Profile Page Nav --> */}
-    </div>
+    {/* </div> */}
 
 
 
 
 
 
-
+   
 
 
 
     {/* BODY */}
-    <main>
+    {/* <main> */}
     <div className="container">
+      {/* <main></main> */}
+        <div className='min-vh-100 d-flex flex-column py-4'>
+    
+            
+
       <section className="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+      
+      <Breadcrumb className='m-4'>
+                <Breadcrumb.Item href="/logIn" >LogIn</Breadcrumb.Item>
+                <Breadcrumb.Item href="/showAllMovies" > Show All Movies</Breadcrumb.Item>
+                <Breadcrumb.Item href="/addMovies" active >Add Movie</Breadcrumb.Item>
+            </Breadcrumb>
+            
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-4 col-md- d-flex flex-column align-items-center justify-content-center">
+
+           
 
               <div className="card mb-3">
                 <div className="card-body">
@@ -177,53 +205,53 @@ function AddMovies(props) {
                   <form className="row g-3 needs-validation" onSubmit={addingMovie}>
                       <hr></hr>
 
-<div className="col-12">
-  <label htmlFor="name" className="form-label">Movie Name</label>
-  <input type="text" name="name" className="form-control" id="name" 
-  placeholder='movie-name'
-  onChange={handleChange}
-   required />
-</div>
+      <div className="col-12">
+        <label htmlFor="name" className="form-label">Movie Name</label>
+        <input type="text" name="name" className="form-control" id="name" 
+        placeholder='movie-name'
+        onChange={handleChange}
+        required />
+      </div>
 
-<div className="col-12">
-      <label htmlFor="genre" className="form-label">Genre</label>
-      <input type="text" name="genre" className="form-control" id="genre" 
-      onChange={handleChange} 
-    placeholder='genre'
-      required />
-    </div>
+      <div className="col-12">
+            <label htmlFor="genre" className="form-label">Genre</label>
+            <input type="text" name="genre" className="form-control" id="genre" 
+            onChange={handleChange} 
+          placeholder='genre'
+            required />
+          </div>
 
-    <div className="col-12">
-      <label htmlFor="description" className="form-label">Description</label>
-      <input type="text" name="description" className="form-control" id="description" 
-      placeholder='description'
-      onChange={handleChange}
-       required />
-    </div>
+          <div className="col-12">
+            <label htmlFor="description" className="form-label">Description</label>
+            <input type="text" name="description" className="form-control" id="description" 
+            placeholder='description'
+            onChange={handleChange}
+            required />
+          </div>
 
-    <div className="col-12">
-      <label htmlFor="releaseDate" className="form-label">Release Date</label>
-      <input type="date" name="releaseDate" className="form-control" id="releaseDate"
-      placeholder='releaseDate'
-       onChange={handleChange} 
-       required />
-    </div>
+          <div className="col-12">
+            <label htmlFor="releaseDate" className="form-label">Release Date</label>
+            <input type="date" name="releaseDate" className="form-control" id="releaseDate"
+            placeholder='releaseDate'
+            onChange={handleChange} 
+            required />
+          </div>
 
-    <div className="col-12">
-      <label htmlFor="quantity" className="form-label">Quantity</label>
-      <input type="number" name="quantity" className="form-control" id="quantity" 
-      onChange={handleChange} 
-    placeholder='quantity'
-      required />
-    </div>
+          <div className="col-12">
+            <label htmlFor="quantity" className="form-label">Quantity</label>
+            <input type="number" name="quantity" className="form-control" id="quantity" 
+            onChange={handleChange} 
+          placeholder='quantity'
+            required />
+          </div>
 
-    <div className="col-12">
-      <label htmlFor="price" className="form-label">Price</label>
-      <input type="number" name="price" className="form-control" id="price" 
-      onChange={handleChange} 
-    placeholder='price'
-      required />
-    </div>
+          <div className="col-12">
+            <label htmlFor="price" className="form-label">Price</label>
+            <input type="number" name="price" className="form-control" id="price" 
+            onChange={handleChange} 
+          placeholder='price'
+            required />
+          </div>
 
 
 <hr></hr>
@@ -238,9 +266,11 @@ function AddMovies(props) {
         </div>
       </div>
     </div>
+    
   </section>
+  </div>
 </div>
-</main>
+{/* // </main> */}
 
 
 
@@ -259,8 +289,6 @@ function AddMovies(props) {
   </div>
   </footer>
   {/* <!-- End Footer --> */}
-
-
 
       </>
   )

@@ -153,17 +153,6 @@ function SignUp() {
 
 
 
-        {/* <!-- ======= Footer ======= --> */}
-  <footer id="footer" className="footer">
-  <div className="copyright">
-    © Copyright <strong><span>Bingedd!!!</span></strong>. All Rights Reserved
-  </div>
-  <div className="credits">
-    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-  </div>
-  </footer>
-  {/* <!-- End Footer --> */}
-
 </main>
     </>
   )

@@ -3,12 +3,16 @@ import api from '../ApiTracker/api';
 import MovieCard from './MovieCard';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+// import Wallet from './Wallet';
+
 
 export function ShowAllMovies(
     // {authorized}
     ) {
 
       const history = useHistory();
+
       const userName = localStorage.getItem('name')
 
     const[movies, setMovies] = useState([])
@@ -47,6 +51,7 @@ export function ShowAllMovies(
 
 
     const isAdmin = localStorage.getItem('role') === 'admin'
+
   return (
     <>
 
@@ -57,7 +62,7 @@ export function ShowAllMovies(
         <a href="index.html" className="logo d-flex align-items-center">
             <span className="d-none d-lg-block">Bingedd!!!</span>
         </a>
-        <i className="bi bi-list toggle-sidebar-btn" />
+        {/* <i className="bi bi-list toggle-sidebar-btn" /> */}
         </div>
         <div className="search-bar">
         <form className="search-form d-flex align-items-center" method="POST" action="#">
@@ -73,7 +78,11 @@ export function ShowAllMovies(
             <img src="assets/img/profile-img.jpg" alt="Profile" className="rounded-circle" />
             <NavDropdown title={userName}>
             <NavDropdown.Item onClick={logOut}>
-            <span className="d-none d-md-block ps-2">Log Out</span>
+              <span className="d-none d-md-block ps-2">Log Out</span>
+            </NavDropdown.Item>
+            <NavDropdown.Item>
+              <a href='/wallet' className="d-none d-md-block ps-2"><span>Manage Profile and Wallet</span>
+              </a>
             </NavDropdown.Item>
             </NavDropdown>
             </div>
@@ -91,14 +100,14 @@ export function ShowAllMovies(
 
 
     {/* <!-- ======= Sidebar ======= --> */}
-    <div id="sidebar" className="sidebar">
+    {/* <div id="sidebar" className="sidebar">
     <ul className="sidebar-nav" id="sidebar-nav">
         <li className="nav-item">
             <a className="nav-link collapsed" href="index.html">
                 <i className="bi bi-grid" />
             <span>Dashboard</span>
             </a>
-        </li>
+        </li> */}
         {/* <li className="nav-item">
         <div className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" >
             <i className="bi bi-menu-button-wide" /> Users
@@ -112,31 +121,31 @@ export function ShowAllMovies(
             {/* </a> */}
           {/* </li>  */}
           {/* </ul> */}
-          </ul>
+          {/* </ul> */}
 
 
 
-          <li className="nav-item">
-                        <a className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" 
+          {/* <li className="nav-item"> */}
+                        {/* <a className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" 
                         // href="#"
                         >
                         <i className="bi bi-journal-text"></i><span>Users</span><i className="bi bi-chevron-down ms-auto"></i>
-                        </a>
-                        <ul id="forms-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
-                            <li>
+                        </a> */}
+                        {/* <ul id="forms-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li> */}
                                 {/* <a href="">
                                 <i className="bi bi-circle"></i><span>Show All Movies</span>
                                 </a> */}
-                            </li>
-                            <li className="nav-heading">Pages</li>
+                            {/* </li>
+                            <li className="nav-heading">Pages</li> */}
                             {/* <li className="item"> */}
-                                <a className="nav-link collapsed" href="users-profile.html">
+                                {/* <a className="nav-link collapsed" href="users-profile.html">
                                 <i className="bi bi-person" />
                                 <span>Profile</span>
-                                </a>
+                                </a> */}
                             {/* </li> */}
-                            </ul>
-                            </li>
+                            {/* </ul>
+                            </li> */}
 
           {/* <Dropdown
         label="User"
@@ -150,60 +159,93 @@ export function ShowAllMovies(
 
 
 
-          <ul className="sidebar-nav" id="sidebar-nav">
-          <li className="nav-item">
-        <div className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" >
+          {/* <ul className="sidebar-nav" id="sidebar-nav">
+          <Dropdown>
+          <li className="nav-item dropdown"> */}
+        {/* <div className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" >
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
             <i className="bi bi-menu-button-wide" /> Admin
+            </Dropdown.Toggle>
             <i className="bi bi-chevron-down ms-auto" />
-        </div>
-        <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav"> 
-        <li>
-              <i className="bi bi-circle"></i><span>Show All Movies</span>
-          </li>
-          <li>
+        </div> */}
+        {/* <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">  */}
+        {/* <Dropdown.Menu> */}
+        {/* <li>
+        <Dropdown.Item href="/showAllMovies">Show All Movies</Dropdown.Item>
+              {/* <i className="bi bi-circle"></i><span>Show All Movies</span> */}
+          {/* </li>  */}
+          {/* <li>
+    <Dropdown.Item href="/addMovies">Add Movies</Dropdown.Item>
               <i className="bi bi-circle"></i><span>Add Movies</span>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
+              <Dropdown.Item href="/userRentedList">Show User Rented List</Dropdown.Item>
               <i className="bi bi-circle"></i><span>Show User Rented List</span>
           </li>
+          </Dropdown.Menu>
         </ul>
-        </li>
-    </ul>
+        </li> */}
+        {/* </Dropdown> */}
+    {/* </ul> */}
+
+
+
+    {/* <Dropdown>
+  <Dropdown.Toggle variant="success" id="dropdown-basic">
+    Dropdown Button
+  </Dropdown.Toggle>
+
+  <Dropdown.Menu>
+    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+  </Dropdown.Menu>
+</Dropdown> */}
     
-    <div>
-    <li className="nav-heading">Pages</li>
+
+
+
+
+
+    {/* <div>
+    <li className="nav-heading">Pages</li> */}
     {/* <li className="item"> */}
-        <a className="nav-link collapsed" 
+        {/* <a className="nav-link collapsed" 
         // href="/"
         >
           <NavDropdown>
             <i className="bi bi-person" />
         <span>Profile</span>
         </NavDropdown>
-        </a>
+        </a> */}
         
 
     {/* </li> */}
-    </div>
+    {/* </div> */}
 
       {/* <!-- End Profile Page Nav --> */}
-    </div>
+    {/* // </div> */}
 
 
+
+
+   
 
 
 
 
         {/* Body */}
 
-      <main id="main" className="main">
+      {/* <main id="main" className="main"> */}
 
-            <h3>Movies</h3>
-            <hr></hr>
+            
 
+      <h1>Movies</h1>
 
-              <div className="form-floating mb-3">
-          <select className="form-select" id="floatingSelect" aria-label="Floating label select example" onChange={handleChange} name="genre" value={selectedOption}>
+      <h2 className='p-2'>All Movies</h2>
+
+              <div className="form-floating mb-3 justify-content-center ">
+          <select className="form-select w-50" id="floatingSelect" aria-label="Floating label select example" onChange={handleChange} name="genre" value={selectedOption}>
             <option value="">Select one</option>
             <option value="fantasy"> Fantasy</option>
             <option value="romcom"> Romcom</option>
@@ -213,24 +255,33 @@ export function ShowAllMovies(
             <option value="chill"> Chill</option>
             <option value="equality"> Equality</option>
           </select>
-          <label htmlFor="floatingSelect">Filter (By Genre):</label>
+          <label htmlFor="floatingSelect" >Filter (By Genre):</label>
           </div>
+
 
 
         { isAdmin && <a href="/addMovies" className="btn btn-primary w-40 p-2 m-3">Add Movie</a> }
 
         { isAdmin && <a href="/UserRentedList" className="btn btn-primary w-40 p-2 m-3">Show User Rented List</a> }
+
+        {/* { isAdmin && <a href="/registeredUsers" className="btn btn-primary w-40 p-2 m-3">Show All Registered Users</a> } */}
+
         
 
+        <Breadcrumb className='m-4'>
+          <Breadcrumb.Item href="/logIn" >LogIn</Breadcrumb.Item>
+          <Breadcrumb.Item href="/showAllMovies" active> Show All Movies</Breadcrumb.Item>
+        </Breadcrumb>
+
         <hr></hr>
-        <section className="section row">
+        <section className="section row p-5 ">
             {
             movies.map(movies =>
                 <MovieCard key={movies._id} {...movies} pageRefresh={filter} />)
             }
         </section>
 
-      </main>
+      {/* </main> */}
         
 
 

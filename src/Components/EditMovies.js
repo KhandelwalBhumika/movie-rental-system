@@ -27,14 +27,6 @@ function EditMovies(props) {
     quantity: props.quantity
 })
 
-// const handleChange = (event) => {
-//   setSelectedOption(event.target.value);
-//   filter({ genre: event.target.value })
-//   // return setSelectedOption
-// };
-
-  // console.log('movie date', movieDate, movie)
-
     const handleChange = event =>{
 
         const {name, value} = event.target;
@@ -43,8 +35,6 @@ function EditMovies(props) {
             [name]: value
         })
     };
-
-
 
     const editingMovie = (e) =>{
           e.preventDefault()

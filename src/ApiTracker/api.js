@@ -9,6 +9,7 @@ instance.interceptors.request.use(
         const token = localStorage.getItem("token");
         config.headers.Authorization = token ? token: null;
         // config.headers.origin = "http://localhost:3001/"     
+        // config.headers['Access-Control-Allow-Origin'] = 'http://localhost:3001'
         return config;
     },
     (err) => {
