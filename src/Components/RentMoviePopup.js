@@ -8,14 +8,21 @@ import {
   Row,
   Col,
   } from "react-bootstrap";
-  import api from '../ApiTracker/api';
+  import { useHistory } from 'react-router-dom';
+  import api from '../configApi/api';
 import Swal2 from "sweetalert2";
 
 function RentMoviePopup(props) {
 
+
+  const history = useHistory();
+
+
     const[movie, setMovie] = useState({
         quantity: 1
     });
+
+
 
     const handleChange = event =>{
         const {name, value} = event.target;
@@ -38,19 +45,29 @@ function RentMoviePopup(props) {
               title: "Please enter valid quantity to be rented."
             })
         }
-
         api.post("movies/rent-movie", requestBody)
         .then((res)=>{
+          console.log('res', res)
+            if (res.data.status == 'success') {
+              Swal2.fire({
+                icon : "success",
+                // title: res.data.message
+                title: "Movie rented Succesfully"
+              })
+              props.updatePage()
+              return
+            }
             Swal2.fire({
-                icon : res.data.status,
-                title: res.data.message
+              icon : "error",
+              // title: res.data.message
+              title: res.data.message
             })
-            props.updatePage()
+        // history.push('/showAllMovies')
         })
         .catch((error)=>{
             Swal2.fire({
                 icon : "error",
-                title: error.response.data.message
+                title: error.message
             })
         })
         }
@@ -70,7 +87,7 @@ function RentMoviePopup(props) {
             Rent Movie
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body></Modal.Body>
+        <Modal.Body>
     <Container fluid>
     <Row>
       <Col md="8">
@@ -98,6 +115,23 @@ function RentMoviePopup(props) {
                 </Col>
                 </Row>
                 </Container>
+                </Modal.Body>
+                <Row>
+                  <Col md="8" m="3">
+                    <p>
+                      Quantity:{movie.quantity}
+                      <br>
+                      </br>
+                      {/* Price(for one): {props._id.price} */}
+                      Price(for one):{props.price}
+                      <br>
+                      </br>
+                      Total amount:{movie.quantity * props.price}
+                    </p>
+                  </Col>
+                </Row>
+                
+
                 <Modal.Footer>
                 <Button onClick={rentMovie}>Submit</Button>
                 <Button onClick={props.onHide}>Close</Button>

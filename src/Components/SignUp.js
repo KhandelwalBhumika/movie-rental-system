@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Swal2 from "sweetalert2";
-import api from "../ApiTracker/api";
+import api from "../configApi/api";
 // import LogIn from './LogIn';
 import './style.css';
 import {useHistory} from 'react-router-dom';
@@ -46,7 +46,8 @@ function SignUp() {
                     .catch((error)=>{
                       Swal2.fire({
                           icon : "error",
-                          title : error.message
+                          // title : error.message
+                          text: error.response.data.message
                           // title: "registration unsuccessfull"
                       })
                     })
@@ -97,7 +98,7 @@ function SignUp() {
 
     <div className="col-12">
       <label htmlFor="yourContact" className="form-label">Contact Number</label>
-      <input type="number" name="contactNumber" className="form-control" id="yourContact" onChange={handleChange} required />
+      <input name="contactNumber" className="form-control" id="yourContact" onChange={handleChange} required />
     </div>
 
       <fieldset className="row mb-3">

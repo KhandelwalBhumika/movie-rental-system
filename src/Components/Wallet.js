@@ -3,25 +3,27 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Swal2 from "sweetalert2";
-import api from "../ApiTracker/api";
+import api from "../configApi/api";
 
-function Wallet() {
+function Wallet(props) {
 
-  const [profile, setProfile] = useState({
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-            contactNumber: "",
-            balance: ""
-  })
-
-  useEffect((e) => {
-    api.put(`users/${_id}/updateWallet`)
-  })
+  
 
   const userName = localStorage.getItem('name')
   
+  // const userId = localStorage.getItem('_id')
+
+  const [profile, setProfile] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    contactNumber: "",
+    balance: "",
+    newBalance: ""
+  })
+
+  // const [totalBalance, setTotalBalance] = useState();
 
   const history = useHistory();
 
@@ -30,36 +32,55 @@ function Wallet() {
     history.push('/logIn');
   }
 
-
   const handleChange = event =>{
     const {name, value} = event.target;
     setProfile({
         ...profile,
         [name]: value
     })
-};
+  };
+
+  // const updateBalance = e => {
+  //   const {name, value} = e.target;
+  //   setTotalBalance({
+  //     totalBalance.value  + profile.balance.value,
+  //     [name]: value
+  //   })
+  // }
+
+  useEffect(() => {
+    api.get(`users/details`)
+    .then((res) => (res.data.newBalance = res.data.balance)  && setProfile(res.data))
+  }, [])
 
 
-  const addMoney = (e) => {
+  const updateProfile = (e) => {
     e.preventDefault()
-    const {firstName, lastName, email, password, contactNumber, balance} = profile;
-    if(firstName || lastName || email || password || contactNumber || balance){
-      api.put(`users/:${_id}/updateWallet`, profile)
-      .then((res)=>{
-          Swal2.fire({
-              icon : "success",
-              title: res.data.message
-          })
+    const {firstName, lastName, contactNumber, email, password, balance} = profile
+    if(firstName || lastName || contactNumber || email || password || balance){
+      console.log(profile)
+      delete profile._id
+      delete profile.newBalance
+      api.put(`users/manage/updateWallet`, profile)
+      .then((res) => {
+        Swal2.fire({
+          icon : "success",
+          // title: res.data.message
+          title: "Successfully updated!"
       })
-      .catch((error)=>{
+      // props.updatePage()
+      // history.push('/updateWallet')
+    })
+    .catch((error)=>{
         Swal2.fire({
             icon : "error",
-            title : error.message
+            title : error.response.data.message
         })
-      })
-  }
+    })
+}
 }
 
+    
 
   return (
     <>
@@ -102,7 +123,7 @@ function Wallet() {
 
     <h1>Wallet</h1>
     <hr></hr>
-    <h3>User-Wallet</h3>
+    <h3>Manage Profile and Wallet</h3>
     <hr></hr>
 
 
@@ -117,7 +138,7 @@ function Wallet() {
       <Breadcrumb className='m-4'>
           <Breadcrumb.Item href="/logIn" >LogIn</Breadcrumb.Item>
           <Breadcrumb.Item href="/showAllMovies"> Show All Movies</Breadcrumb.Item>
-          <Breadcrumb.Item href="/wallet" active> Open Wallet</Breadcrumb.Item>
+          <Breadcrumb.Item href="/wallet" active> Manage Profile and Wallet</Breadcrumb.Item>
         </Breadcrumb>
         
             
@@ -128,10 +149,12 @@ function Wallet() {
             <div className="card mb-3">
                 <div className="card-body">
                   <div className="pt-4 pb-2">
-                    <h5 className="card-title text-center pb-0 fs-4">User-Wallet</h5>
+                    <h5 className="card-title text-center pb-0 fs-4">Manage Profile and Wallet</h5>
                     <p className="text-center small">Manage money in your wallet.</p>
                   </div>
-                  <form className="row g-3 needs-validation" onSubmit={addMoney}>
+                  <form className="row g-3 needs-validation" 
+                  onSubmit={updateProfile}
+                  >
                       <hr></hr>
 
 
@@ -142,25 +165,25 @@ function Wallet() {
                       
                       
                       <div className="col-12 p-3 ">
-        <label htmlFor="name" className="form-label">Balance: </label>
+        <label htmlFor="name" className="form-label">Balance: {profile.newBalance} </label>
         {/* total amount - rent movies amount */}
       </div>
       </div>
 
       <div className="col-12">
-      <label htmlFor="firstName" className="form-label">Your First Name</label>
+      <label htmlFor="firstName" className="form-label">Your First Name:</label>
       <input 
       type="text" 
       name="firstName" 
       className="form-control" 
       id="firstName" 
-      value={profile.firstName} 
+      value={profile.firstName}
       onChange={handleChange} 
-      required />
+       />
     </div>
 
     <div className="col-12">
-      <label htmlFor="lastName" className="form-label">Your Last Name</label>
+      <label htmlFor="lastName" className="form-label">Your Last Name:</label>
       <input 
       type="text" 
       name="lastName" 
@@ -168,10 +191,10 @@ function Wallet() {
       id="lastName" 
       value={profile.lastName}
       onChange={handleChange} 
-      required />
+       />
     </div>
 
-    <div className="col-12">
+    {/* <div className="col-12">
       <label htmlFor="yourEmail" className="form-label">Email</label>
       <input 
       type="email" 
@@ -179,23 +202,24 @@ function Wallet() {
       className="form-control" 
       id="yourEmail" 
       value={profile.email}
-      onChange={handleChange} required />
-    </div>
+      onChange={handleChange} 
+       />
+    </div> */}
 
     <div className="col-12">
-      <label htmlFor="yourPassword" className="form-label">Password</label>
+      <label htmlFor="yourPassword" className="form-label">Password:</label>
       <input 
       type="password" 
       name="password" 
       className="form-control" 
       id="yourPassword" 
-      value={profile.password}
+      placeholder='Enter new password'
       onChange={handleChange} 
-      required />
+       />
     </div>
 
     <div className="col-12">
-      <label htmlFor="yourContact" className="form-label">Contact Number</label>
+      <label htmlFor="yourContact" className="form-label">Contact Number:</label>
       <input 
       type="number" 
       name="contactNumber" 
@@ -203,20 +227,21 @@ function Wallet() {
       id="yourContact" 
       value={profile.contactNumber}
       onChange={handleChange} 
-      required />
+       />
     </div>
 
       <div className="col-12">
-          <label htmlFor="addMoney" className="form-label">Add Money</label>
+          <label htmlFor="addMoney" className="form-label"> Add Money:</label>
           <input 
           type="number" 
           name="balance" 
           className="form-control m-3" 
           id="balance" 
+          value={profile.balance}
           onChange={handleChange} 
           placeholder='Enter amount to be added'
-          required />
-          <button className="btn btn-primary w-100" type="submit">Add </button>
+           />
+          <button className="btn btn-primary w-100" type="submit">Update </button>
        </div>
 
 

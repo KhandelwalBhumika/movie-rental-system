@@ -2,41 +2,22 @@
 
 import React, {useState} from 'react';
 import images from '../images/movie.jpg';
-import api from '../ApiTracker/api';
-import Swal2 from "sweetalert2";
 import EditMovies from './EditMovies';
 import RentMoviePopup from './RentMoviePopup';
+import DeletePopUp from './DeletePopUp';
 
 
 
 function MovieCard(props) {
 
     const [editModalShow, setEditModalShow] = useState(false)
+    const [deleteModalShow, setDeleteModalShow] = useState(false)
     const [rentModalShow, setRentModalShow] = useState(false)
 
     const isAdmin = localStorage.getItem('role') === 'admin'
 
-const deleteMovie = (e) =>{
-    e.preventDefault()
-        api.delete(`movies/${props._id}/`)
 
-        .then((res)=>{
-            Swal2.fire({
-                icon : "success",
-                // title: res.data.message
-                title: "Successfully deleted"
-            })
-            props.pageRefresh()
-        })
-        .catch((error)=>{
-            // this.errors = error.response.data.errors;
-            Swal2.fire({
-                // icon : "error",
-                title : error.response.data.message,
-                type: "error"
-            })
-        })
-  }
+
 
 
   const propsPageRefresh = () => props.pageRefresh()
@@ -57,27 +38,34 @@ const deleteMovie = (e) =>{
                             <p className="card-text"><strong>Price: </strong>{props.price} </p>
                         
                             { 
-                      isAdmin && <button
+                        isAdmin && <button
+                          className="btn btn-primary m-2"
+                          type="button"
+                          variant="info"
+                          onClick={() => setEditModalShow(true)}
+                        > Edit Movie
+                        </button> }
+                        <EditMovies
+                          {...props}
+                            show={editModalShow}
+                            onHide={() => setEditModalShow(false)}
+                            updatePage={propsPageRefresh}
+                            />
+                  
+                        { 
+                        isAdmin && <button
                         className="btn btn-primary m-2"
                         type="button"
                         variant="info"
-                        onClick={() => setEditModalShow(true)}
-                      > Edit Movie
-                      </button> }
-                       <EditMovies
-                        {...props}
-                          show={editModalShow}
-                          onHide={() => setEditModalShow(false)}
+                        onClick={() => setDeleteModalShow(true)}
+                        > Delete Movie
+                        </button> }
+                       <DeletePopUp
+                          show={deleteModalShow}
+                          onHide={() => setDeleteModalShow(false)}
                           updatePage={propsPageRefresh}
                           />
-                  
-                    { isAdmin && 
-                    <button 
-                    type="button" 
-                    className="btn btn-primary m-2" 
-                    onClick={deleteMovie}>
-                      Delete Movie
-                      </button> }
+
 
                       { !isAdmin && 
                       <button

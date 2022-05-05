@@ -41,6 +41,13 @@ const routes = [
     //     layout: "/admin",
     //     protected: true
     //   },
+    {
+      path: "/users/:id/updateWallet",
+      name: "updateWallet",
+      component: updateWallet,
+      // layout: "/admin",
+      protected: true
+    },
 ]
 
 export default routes;

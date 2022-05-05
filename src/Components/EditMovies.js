@@ -10,7 +10,7 @@ import {
   } from "react-bootstrap";
   import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
   import Swal2 from "sweetalert2";
-  import api from "../ApiTracker/api";
+  import api from "../configApi/api";
 
 
 function EditMovies(props) {
@@ -28,7 +28,6 @@ function EditMovies(props) {
 })
 
     const handleChange = event =>{
-
         const {name, value} = event.target;
         setMovie({
             ...movie,
@@ -75,11 +74,8 @@ function EditMovies(props) {
             Edit Movie
           </Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
-
-
-
-
         <Container fluid>
         <Row>
           <Col md="8">
@@ -160,7 +156,7 @@ function EditMovies(props) {
                       </Col>
 
                     <button
-                    className="btn btn-primary align-center"
+                    className="btn btn-primary align-center m-3 b-3"
                     type="submit"
                     variant="info"
                   > Edit Movie
@@ -180,12 +176,8 @@ function EditMovies(props) {
             </Col>
             </Row>
             </Container>
-
-
-
-
-
         </Modal.Body>
+
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import api from '../ApiTracker/api';
+import api from '../configApi/api';
 import MovieCard from './MovieCard';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import UpdatingNewGenre from './UpdatingNewGenre';
 // import Wallet from './Wallet';
 
 
@@ -48,7 +49,9 @@ export function ShowAllMovies(
           history.push('/logIn');
         }
 
-
+        const manageProfile = () => {
+          history.push('/updateWallet')
+        }
 
     const isAdmin = localStorage.getItem('role') === 'admin'
 
@@ -81,7 +84,7 @@ export function ShowAllMovies(
               <span className="d-none d-md-block ps-2">Log Out</span>
             </NavDropdown.Item>
             <NavDropdown.Item>
-              <a href='/wallet' className="d-none d-md-block ps-2"><span>Manage Profile and Wallet</span>
+              <a href='/wallet' className="d-none d-md-block ps-2 " onClick={manageProfile}><span>Manage Profile and Wallet</span>
               </a>
             </NavDropdown.Item>
             </NavDropdown>
@@ -96,135 +99,6 @@ export function ShowAllMovies(
 
 
 
-
-
-
-    {/* <!-- ======= Sidebar ======= --> */}
-    {/* <div id="sidebar" className="sidebar">
-    <ul className="sidebar-nav" id="sidebar-nav">
-        <li className="nav-item">
-            <a className="nav-link collapsed" href="index.html">
-                <i className="bi bi-grid" />
-            <span>Dashboard</span>
-            </a>
-        </li> */}
-        {/* <li className="nav-item">
-        <div className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" >
-            <i className="bi bi-menu-button-wide" /> Users
-            <i className="bi bi-chevron-down ms-auto" />
-        </div>
-        </li> */}
-        {/* <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">  */}
-        {/* <li>
-            {/* <a href=""> */}
-              {/* <i className="bi bi-circle"></i><span>Show Movies</span> */}
-            {/* </a> */}
-          {/* </li>  */}
-          {/* </ul> */}
-          {/* </ul> */}
-
-
-
-          {/* <li className="nav-item"> */}
-                        {/* <a className="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" 
-                        // href="#"
-                        >
-                        <i className="bi bi-journal-text"></i><span>Users</span><i className="bi bi-chevron-down ms-auto"></i>
-                        </a> */}
-                        {/* <ul id="forms-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
-                            <li> */}
-                                {/* <a href="">
-                                <i className="bi bi-circle"></i><span>Show All Movies</span>
-                                </a> */}
-                            {/* </li>
-                            <li className="nav-heading">Pages</li> */}
-                            {/* <li className="item"> */}
-                                {/* <a className="nav-link collapsed" href="users-profile.html">
-                                <i className="bi bi-person" />
-                                <span>Profile</span>
-                                </a> */}
-                            {/* </li> */}
-                            {/* </ul>
-                            </li> */}
-
-          {/* <Dropdown
-        label="User"
-        options={[
-          { label: 'Show Movies', value: 'showMovies' }
-        ]}
-        value={user}
-        onChange={handleUserChange}
-      /> */}
-
-
-
-
-          {/* <ul className="sidebar-nav" id="sidebar-nav">
-          <Dropdown>
-          <li className="nav-item dropdown"> */}
-        {/* <div className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" >
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-            <i className="bi bi-menu-button-wide" /> Admin
-            </Dropdown.Toggle>
-            <i className="bi bi-chevron-down ms-auto" />
-        </div> */}
-        {/* <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">  */}
-        {/* <Dropdown.Menu> */}
-        {/* <li>
-        <Dropdown.Item href="/showAllMovies">Show All Movies</Dropdown.Item>
-              {/* <i className="bi bi-circle"></i><span>Show All Movies</span> */}
-          {/* </li>  */}
-          {/* <li>
-    <Dropdown.Item href="/addMovies">Add Movies</Dropdown.Item>
-              <i className="bi bi-circle"></i><span>Add Movies</span>
-          </li> */}
-          {/* <li>
-              <Dropdown.Item href="/userRentedList">Show User Rented List</Dropdown.Item>
-              <i className="bi bi-circle"></i><span>Show User Rented List</span>
-          </li>
-          </Dropdown.Menu>
-        </ul>
-        </li> */}
-        {/* </Dropdown> */}
-    {/* </ul> */}
-
-
-
-    {/* <Dropdown>
-  <Dropdown.Toggle variant="success" id="dropdown-basic">
-    Dropdown Button
-  </Dropdown.Toggle>
-
-  <Dropdown.Menu>
-    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-  </Dropdown.Menu>
-</Dropdown> */}
-    
-
-
-
-
-
-    {/* <div>
-    <li className="nav-heading">Pages</li> */}
-    {/* <li className="item"> */}
-        {/* <a className="nav-link collapsed" 
-        // href="/"
-        >
-          <NavDropdown>
-            <i className="bi bi-person" />
-        <span>Profile</span>
-        </NavDropdown>
-        </a> */}
-        
-
-    {/* </li> */}
-    {/* </div> */}
-
-      {/* <!-- End Profile Page Nav --> */}
-    {/* // </div> */}
 
 
 
@@ -246,7 +120,7 @@ export function ShowAllMovies(
 
               <div className="form-floating mb-3 justify-content-center ">
           <select className="form-select w-50" id="floatingSelect" aria-label="Floating label select example" onChange={handleChange} name="genre" value={selectedOption}>
-            <option value="">Select one</option>
+            <option value="">--Select one--</option>
             <option value="fantasy"> Fantasy</option>
             <option value="romcom"> Romcom</option>
             <option value="drama"> Drama</option>
@@ -257,7 +131,7 @@ export function ShowAllMovies(
           </select>
           <label htmlFor="floatingSelect" >Filter (By Genre):</label>
           </div>
-
+          {/* <UpdatingNewGenre /> */}
 
 
         { isAdmin && <a href="/addMovies" className="btn btn-primary w-40 p-2 m-3">Add Movie</a> }

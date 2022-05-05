@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Swal2 from "sweetalert2";
-import api from "../ApiTracker/api";
+import api from "../configApi/api";
 import {useHistory} from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 
@@ -87,7 +87,6 @@ function LogIn(props) {
 
 
       const login = (e) =>{
-
         e.preventDefault()
         const {email, password} = user;
         console.log('e', e, 'user', user)
@@ -103,12 +102,10 @@ function LogIn(props) {
               localStorage.setItem('name', res.data.name)
               localStorage.setItem('token', res.data.token)
               localStorage.setItem('role', res.data.role)
+              history.push('/showAllMovies')
             }
-             history.push('/showAllMovies')
             // <Router history={history}>...</Router>
-           
                 // setLoggedin("/showAllMovies")
-                
           })
             .catch((error)=>{
                 Swal2.fire({
@@ -126,7 +123,6 @@ function LogIn(props) {
           api.post("users/google", response.profileObj)
           // .then(res => {
           //   console.log("Google login success", res);
-            // TODO: save token to local storeg and redairect
             .then((res)=>{  
               console.log('res', res);
               Swal2.fire({
@@ -137,8 +133,8 @@ function LogIn(props) {
               localStorage.setItem('name', res.data.name)
               localStorage.setItem('token', res.data.token)
               localStorage.setItem('role', res.data.role)
-            }
              history.push('/showAllMovies')
+            }
             // <Router history={history}>...</Router>
            
                 // setLoggedin("/showAllMovies")
@@ -226,7 +222,9 @@ function LogIn(props) {
                     <p className="text-center small">Enter your email and password to login.</p>
                   </div>
 
-                  <form className="row g-3 needs-validation" onSubmit={login} >
+                  <form className="row g-3 needs-validation" 
+                  // onSubmit={login} 
+                  >
 
                     <div className="col-12">
                       <label className="form-label">Email</label>
@@ -272,22 +270,28 @@ function LogIn(props) {
                     <div className="col-12">
                       <button
                       className="btn btn-primary w-100" type="submit" 
+                      onClick={login}
                         >Login
                       </button>
                       
                       <p >--OR--</p>
+
+                      <GoogleLogin
+                        clientId="286757882492-lpmfcrb421f2nm2bhipojm1ome4b6nre.apps.googleusercontent.com"
+                        buttonText="Login with Google"
+                        onSuccess={responseSuccessGoogle}
+                        onFailure={responseErrorGoogle}
+                      />
+
                       </div>
 
+                  </form>
 
-
-
-                    <div className="col-12">
+                  <div className="col-12">
                       <p className="small mb-0">Don't have an account? 
                       <a href="/signUp" className="btn btn-primary w-100">Register</a>
                       </p>
                     </div>
-                  </form>
-
                 </div>
               </div>
 
@@ -323,12 +327,7 @@ function LogIn(props) {
               </GoogleAuthConsumer>
           </GoogleAuth> */}
 
-<GoogleLogin
-    clientId="286757882492-lpmfcrb421f2nm2bhipojm1ome4b6nre.apps.googleusercontent.com"
-    buttonText="Login with Google"
-    onSuccess={responseSuccessGoogle}
-    onFailure={responseErrorGoogle}
-  />
+
       </section>
 
     </div>
