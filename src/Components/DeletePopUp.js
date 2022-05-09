@@ -10,12 +10,13 @@ import {
   } from "react-bootstrap";
   import Swal2 from "sweetalert2";
   import api from "../configApi/api";
-  import { useHistory } from 'react-router-dom';
+  // import { useHistory } from 'react-router-dom';
 
 
 function DeletePopUp(props) {
 
-    const history = useHistory();
+
+  const propsPageRefresh = () => props.pageRefresh()
 
     const deleteMovie = (e) =>{
         e.preventDefault()
@@ -23,21 +24,25 @@ function DeletePopUp(props) {
             .then((res)=>{
                 Swal2.fire({
                     icon : "success",
-                    // title: res.data.message
-                    title: "Successfully deleted"
+                    title: res.data.message
                 })
                 props.pageRefresh()
-                history.push('/showAllMovies')
+                // props.updatePage()
+                // history.push('/showAllMovies')
             })
             .catch((error)=>{
                 // this.errors = error.response.data.errors;
                 Swal2.fire({
                     // icon : "error",
                     icon: "error",
-                    title : error.response.data.message
+                    title : error.message
                 })
             })
       }
+
+
+
+
 
   return (
             <>
@@ -55,7 +60,7 @@ function DeletePopUp(props) {
                 <Modal.Body>
                 <Container fluid>
                   <Row>
-                    <Col md="8">
+                    <Col md="12 p=3">
                     <Card>
                         <Card.Body>
                             <Form >
@@ -70,7 +75,7 @@ function DeletePopUp(props) {
                 </Container>
                 </Modal.Body>
                       <Modal.Footer>
-                      <Button onClick={deleteMovie}>Yes</Button>
+                      <Button onClick={deleteMovie} updatePage={propsPageRefresh}>Yes</Button>
                       <Button onClick={props.onHide}>Cancel</Button>
                       </Modal.Footer>
                       </Modal>

@@ -89,7 +89,6 @@ function LogIn(props) {
       const login = (e) =>{
         e.preventDefault()
         const {email, password} = user;
-        console.log('e', e, 'user', user)
         if(email && password){
             api.post("users/logIn", user)
             .then((res)=>{  
@@ -104,14 +103,11 @@ function LogIn(props) {
               localStorage.setItem('role', res.data.role)
               history.push('/showAllMovies')
             }
-            // <Router history={history}>...</Router>
-                // setLoggedin("/showAllMovies")
           })
             .catch((error)=>{
                 Swal2.fire({
                     icon : "error",
-                    // title : error.response.data.message
-                    title: error.message
+                    title: error.response.data.message
                 })
             })
         }
@@ -148,62 +144,18 @@ function LogIn(props) {
                 })
             })
         }
-      // }
-
-          // })
-      // }
-
-      const responseErrorGoogle = (response) => {
-        console.log(response)
-      }
 
 
-
-    //   const loggingGoogle = () => {
-    
-    //     const [cookies, setCookie] = useCookies(['token']);
-    //     setCookie('token', cookies);
-    
-    //     api.post('/auth-user-oauth', {headers: {cookie: cookies}})
-    //     .then((res) => {
-    
-    //         console.log(res.data.role);
-    //         localStorage.setItem("isAuthenticated", "true");
-    //         localStorage.setItem("role", res.data.role);
-    //     }).then(()=>{
-    //         return Swal2.fire({
-    //             icon : "success",
-    //             title : "Logged in Successfully."
-    //         })
-    //     })
-    //     history.push('/showAllMovies')
-    //     .catch((err)=>{
-    //         console.log(err);
-    //     })
-        
-    //     return null;
-    // }
+        const responseErrorGoogle = (response) => {
+          console.log(response)
+        }
+  
 
 
 
 
-        // const google = () => {
-        //   window.open("http://localhost:3001/auth/google", "_self");
-        // };
 
-      // const loggingGoogle = (response) => {
-      //   const options  = {
-      //     method: 'POST',
-      //     url: "http://localhost:3000/showAllMovies",
-      //     params: {token: response.tokenId, name: response.name, email: response.email},
-          
-      //     redirectUri: "http://localhost:3000/showAllMovies",
-      //     headers: {
-      //       clientId: "286757882492-lpmfcrb421f2nm2bhipojm1ome4b6nre.apps.googleusercontent.com",
-      //       host: "http://localhost:3001/auth/google"
-      //     }}
-      //     conosle.log('params', params)
-      // };
+
 
   return (
     <> 
@@ -240,7 +192,8 @@ function LogIn(props) {
                         //     {...register('email')} 
                         // className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                         onChange={handleChange}
-                        required/>
+                        required
+                        />
                         {/* <div className="invalid-feedback">Please enter your email.</div> */}
                       </div>
                     </div>
@@ -252,13 +205,9 @@ function LogIn(props) {
                         name="password"
                         value={user.password}
                         type="password"
-                        // id="yourPassword" 
-                        //     {...register('password')} 
-                        // className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                         onChange={handleChange}
                       className="form-control" 
                       required/>
-                      {/* <div className="invalid-feedback">Please enter your password!</div> */}
                     </div>
 
                     <div className="col-12">
@@ -274,14 +223,17 @@ function LogIn(props) {
                         >Login
                       </button>
                       
-                      <p >--OR--</p>
+                      <p className='text-center p-3'>--OR--
+                        <br></br>
 
                       <GoogleLogin
+                      className='text-center m-2 mb-1'
                         clientId="286757882492-lpmfcrb421f2nm2bhipojm1ome4b6nre.apps.googleusercontent.com"
                         buttonText="Login with Google"
                         onSuccess={responseSuccessGoogle}
                         onFailure={responseErrorGoogle}
                       />
+                      </p>
 
                       </div>
 

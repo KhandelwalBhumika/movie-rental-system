@@ -5,7 +5,7 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Swal2 from "sweetalert2";
 import api from "../configApi/api";
 
-function Wallet(props) {
+function ManageProfileAndWallet(props) {
 
   
 
@@ -80,6 +80,10 @@ function Wallet(props) {
 }
 }
 
+const showStatement = () => {
+  history.push('/walletStatement')
+}
+
     
 
   return (
@@ -128,7 +132,6 @@ function Wallet(props) {
 
 
     <div className="container">
-      {/* <main></main> */}
         <div className='min-vh-100 d-flex flex-column py-4'>
     
             
@@ -194,18 +197,6 @@ function Wallet(props) {
        />
     </div>
 
-    {/* <div className="col-12">
-      <label htmlFor="yourEmail" className="form-label">Email</label>
-      <input 
-      type="email" 
-      name="email" 
-      className="form-control" 
-      id="yourEmail" 
-      value={profile.email}
-      onChange={handleChange} 
-       />
-    </div> */}
-
     <div className="col-12">
       <label htmlFor="yourPassword" className="form-label">Password:</label>
       <input 
@@ -235,38 +226,33 @@ function Wallet(props) {
           <input 
           type="number" 
           name="balance" 
-          className="form-control m-3" 
+          className="form-control " 
           id="balance" 
-          value={profile.balance}
+          // value={profile.balance}
           onChange={handleChange} 
           placeholder='Enter amount to be added'
            />
-          <button className="btn btn-primary w-100" type="submit">Update </button>
-       </div>
+          <button className="btn btn-primary w-100 mt-3" type="submit">Update </button>
+          </div>
+          </form>
+          <button className="btn btn-primary w-100 mt-3" onClick={showStatement}>Show Wallet Statement </button>
+       
 
 
-                      </form>
+                      
                       </div>
                       </div>
-      </div>
-      </div>
-      </div>
-      </section>
-      </div>
-      </div>
-
-
-        
+            </div>
+            </div>
+            </div>
+            </section>
+            </div>
+            </div>
 
 
 
-
-
-
-
-
-      {/* <!-- ======= Footer ======= --> */}
-  <footer id="footer" className="footer">
+     {/* <!-- ======= Footer ======= --> */}
+  <footer className="footer" > 
   <div className="copyright">
     © Copyright <strong><span>Bingedd!!!</span></strong>. All Rights Reserved
   </div>
@@ -275,9 +261,8 @@ function Wallet(props) {
   </div>
   </footer>
   {/* <!-- End Footer --> */}
-  
     </>
   )
 }
 
-export default Wallet;
+export default ManageProfileAndWallet;

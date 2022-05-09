@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import api from '../ApiTracker/api';
+import api from '../configApi/api';
 import ShowAllUsers from './ShowAllUsers';
 
 
@@ -66,19 +66,22 @@ function RegisteredUsers() {
        <table className="table table-striped">
         <thead>
           <tr>
-            <th scope="col">User Name</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
             <th scope="col">Email</th>
             <th scope="col">Contact Number</th>
           </tr>
         </thead>
 
         <tbody>
-            {
-            users.map(users => 
-                <ShowAllUsers key={users.id} {...users} />
-            )
+        {
+            users.map ((users) =>
+                {
+                <ShowAllUsers key={users._id} {...users} 
+                />
+                })
             }
-        </tbody>
+            </tbody>
         </table> 
        </div>
        </div>

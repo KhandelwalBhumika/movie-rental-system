@@ -9,8 +9,10 @@ import ShowAllMovies from "./Components/ShowAllMovies";
 import EditMovies from './Components/EditMovies';
 import SignUp from './Components/SignUp';
 import AddMovies from './Components/AddMovies';
-// import UserRentedList from './Components/UserRentedList';
-import Wallet from './Components/Wallet';
+import walletStatement from './Components/walletStatement';
+import UserRentedList from './Components/UserRentedList';
+import ManageProfileAndWallet from './Components/ManageProfileAndWallet';
+// import RegisteredUsers from './Components/RegisteredUsers';
 
 
 
@@ -25,14 +27,16 @@ return(
    forceRefresh={true}
    >
     <Switch>
-      <Route exact path="/logIn" component={LogIn}/>
+      <Route exact path="/logIn" component={LogIn} />
       <Route exact path="/signUp" component={SignUp} />
       <ProtectedRoute exact path="/editMovies" component={EditMovies} />
       <ProtectedRoute exact path="/addMovies" component={AddMovies} />
       <ProtectedRoute exact path="/showAllMovies" component={ShowAllMovies} />
-      <Route exact path="/updateWallet" component={Wallet} />
-      {/* <ProtectedRoute exact path="/userRentedList" component={UserRentedList} /> */}
-      <Route exact path="" component={LogIn}  />
+      <ProtectedRoute exact path="/manageProfileAndWallet" component={ManageProfileAndWallet} />
+      <ProtectedRoute exact path='/walletStatement' component={walletStatement} />
+      <ProtectedRoute exact path="/userRentedList" component={UserRentedList} />
+      {/* <ProtectedRoute exact path="/registeredUsers" component={RegisteredUsers} /> */}
+      <Route exact path="" component={LogIn} />
     </Switch>
   </Router>
   </>

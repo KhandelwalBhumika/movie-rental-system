@@ -7,8 +7,10 @@ import { useHistory } from 'react-router-dom';
 
 function AddMovies(props) {
 
+  const genreOptions = ["comedy", "drama", "fantasy", "romcom", "patriotic", "action", "chill", "equality", "thriller", "sci-fi"]
 
   const history = useHistory();
+
 
   const userName = localStorage.getItem('name')
 
@@ -31,26 +33,26 @@ function AddMovies(props) {
 
     const addingMovie = (e) =>{
         e.preventDefault()
-        // const{name} = movie
         const {name, releaseDate, genre, description, price, quantity} = movie;
-        if(name && releaseDate && genre && description && price && quantity){
-            api.post("movies/admin/create", movie)
+        console.log('movie', movie)
+        if(name && releaseDate &&  genre && description && price && quantity){
+            api.post("movies/admin/create", movie )
             .then((res)=>{
-                Swal2.fire({
-                    icon : "success",
-                    title: res.data.data
-                })
-                if (res.data.role && res.data.token) {
-                    localStorage.getItem("role", res.data.role);
-                    localStorage.getItem("token", res.data.token);
-                  }
-                  history.push('/showAllMovies')
+              Swal2.fire({
+                icon : "success",
+                title: "Successfully updated!"
+            })
+            if (res.data.role && res.data.token) {
+                localStorage.getItem("role", res.data.role);
+                localStorage.getItem("token", res.data.token);
+              }
+                  // history.push('/showAllMovies')
             })
             .catch((error)=>{
-                Swal2.fire({
-                    icon : "error",
-                    title : error.response.data.message
-                })
+              Swal2.fire({
+                  icon : "error",
+                  title : error.response.data.message
+              })
             })
         }
       }
@@ -58,6 +60,10 @@ function AddMovies(props) {
       const logOut = () => {
         localStorage.clear()
         history.push('/logIn');
+      }
+
+      const manageProfile = () => {
+        history.push('/manageProfileAndWallet')
       }
       
 
@@ -90,6 +96,10 @@ function AddMovies(props) {
             <NavDropdown title={userName}>
             <NavDropdown.Item onClick={logOut}>
             <span className="d-none d-md-block ps-2">Log Out</span>
+            </NavDropdown.Item>
+            <NavDropdown.Item>
+              <a href='/wallet' className="d-none d-md-block ps-2 " onClick={manageProfile}><span>Manage Profile and Wallet</span>
+              </a>
             </NavDropdown.Item>
             </NavDropdown>
             </div>
@@ -132,24 +142,33 @@ function AddMovies(props) {
                     <h5 className="card-title text-center pb-0 fs-4">Add Movie</h5>
                     <p className="text-center small">Enter the details to add movie.</p>
                   </div>
-                  <form className="row g-3 needs-validation" onSubmit={addingMovie}>
+                  <form className="row g-3 needs-validation">
                       <hr></hr>
 
-      <div className="col-12">
-        <label htmlFor="name" className="form-label">Movie Name</label>
-        <input type="text" name="name" className="form-control" id="name" 
-        placeholder='movie-name'
-        onChange={handleChange}
-        required />
-      </div>
+              <div className="col-12">
+                <label htmlFor="name" className="form-label">Movie Name</label>
+                <input type="text" name="name" className="form-control" id="name" 
+                placeholder='movie-name'
+                onChange={handleChange}
+                required />
+              </div>
 
-      <div className="col-12">
+          <div className="col-12">
             <label htmlFor="genre" className="form-label">Genre</label>
-            <input type="text" name="genre" className="form-control" id="genre" 
-            onChange={handleChange} 
-          placeholder='genre'
-            required />
-          </div>
+                  <div className="col-sm-10">
+                     {/* <span>{selectedOption}</span> */}
+                        <select
+                        type="text"
+                        name='genre'
+                        className="form-select" 
+                        id="genre" 
+                        aria-label="Floating label select example"
+                        onChange={handleChange}
+                        >
+                        {genreOptions.map((value) => <option key={[value]} >{value}</option>)}
+                        </select>
+                  </div> 
+                </div>
 
           <div className="col-12">
             <label htmlFor="description" className="form-label">Description</label>
@@ -184,13 +203,13 @@ function AddMovies(props) {
           </div>
 
 
-<hr></hr>
-    <div>
-      <div className="col-12">
-      <button className="btn btn-primary w-100" type="submit">Add Movie</button>
-      </div>
-    </div>
-  </form>
+            <hr></hr>
+                <div>
+                  <div className="col-12">
+                  <button className="btn btn-primary w-100" type="submit" onClick={addingMovie}>Add Movie</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -210,7 +229,7 @@ function AddMovies(props) {
 
 
  {/* <!-- ======= Footer ======= --> */}
- <footer id="footer" className="footer">
+ <footer className="footer">
   <div className="copyright">
     © Copyright <strong><span>Bingedd!!!</span></strong>. All Rights Reserved
   </div>
@@ -224,5 +243,5 @@ function AddMovies(props) {
   )
 }
 
-export default AddMovies
+export default AddMovies;
 

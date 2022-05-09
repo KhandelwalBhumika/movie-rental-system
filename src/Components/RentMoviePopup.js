@@ -2,20 +2,19 @@ import React, {useState} from 'react';
 import {
     Modal,
   Button,
-  Card,
   Form,
   Container,
   Row,
   Col,
   } from "react-bootstrap";
-  import { useHistory } from 'react-router-dom';
+  // import { useHistory } from 'react-router-dom';
   import api from '../configApi/api';
 import Swal2 from "sweetalert2";
 
 function RentMoviePopup(props) {
 
 
-  const history = useHistory();
+  // const history = useHistory();
 
 
     const[movie, setMovie] = useState({
@@ -48,7 +47,7 @@ function RentMoviePopup(props) {
         api.post("movies/rent-movie", requestBody)
         .then((res)=>{
           console.log('res', res)
-            if (res.data.status == 'success') {
+            if (res.data.status === 'success') {
               Swal2.fire({
                 icon : "success",
                 // title: res.data.message
@@ -90,9 +89,8 @@ function RentMoviePopup(props) {
         <Modal.Body>
     <Container fluid>
     <Row>
-      <Col md="8">
-        <Card>
-        <Card.Body>
+      <Col md="12">
+        
             <Form>
             {/* <Row> */}
                   {/* <Col className="pr-1" md="6"> */}
@@ -110,15 +108,17 @@ function RentMoviePopup(props) {
                 {/* </Col> */}
                 {/* </Row> */}
                 </Form>
-                </Card.Body>
-                </Card>
+                
                 </Col>
                 </Row>
                 </Container>
                 </Modal.Body>
-                <Row>
-                  <Col md="8" m="3">
-                    <p>
+
+                <Row className='text-right right p-3'>
+                  <Col md="12"
+                  // className='text-align right md=8 m=3'
+                  >
+                    <p >
                       Quantity:{movie.quantity}
                       <br>
                       </br>

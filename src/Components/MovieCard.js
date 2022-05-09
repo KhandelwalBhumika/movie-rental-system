@@ -58,9 +58,11 @@ function MovieCard(props) {
                         type="button"
                         variant="info"
                         onClick={() => setDeleteModalShow(true)}
+                        // onClick = {DeletePopUp}
                         > Delete Movie
                         </button> }
                        <DeletePopUp
+                       {...props}
                           show={deleteModalShow}
                           onHide={() => setDeleteModalShow(false)}
                           updatePage={propsPageRefresh}
