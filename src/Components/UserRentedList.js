@@ -18,7 +18,7 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
         useEffect(() => {
             api.get("movies/rent-movie/list/")
-            .then(res => setRentList(res.data.data))
+            .then((res) => setRentList(res.data.data))
             console.log('', rentList)
           }, [])
 
@@ -38,12 +38,7 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
         </a>
         {/* <i className="bi bi-list toggle-sidebar-btn" /> */}
         </div>
-        <div className="search-bar">
-        <form className="search-form d-flex align-items-center" method="POST" action="#">
-            <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
-            <button type="submit" title="Search"><i className="bi bi-search" /></button>
-        </form>
-        </div>
+      
 
         <nav className="header-nav ms-auto">
           <ul className="d-flex align-items-center">
@@ -66,18 +61,7 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
 
 
-
-
-
-
-      
-
-
-
-
       {/* BODY */}
-        {/* <main id="main" className='main'> */}
-
       
 
             <section className="section row ">
@@ -99,7 +83,6 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
        <table className="table table-striped">
         <thead>
           <tr>
-            {/* <th scope="col">Serial No.</th> */}
             <th scope="col">User Name</th>
             <th scope="col">Movie Rented</th>
             <th scope="col">Quantity</th>
@@ -119,7 +102,6 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
        </div>
             </section> 
 
-        {/* </main> */}
 
 
 

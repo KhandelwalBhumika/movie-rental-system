@@ -17,9 +17,15 @@ function SignUp() {
              lastName: "",
              email: "",
              password: "",
+             confirmPassword: "",
              contactNumber: "",
              role: ""
        })
+
+      //  const [error, setError] = useState({
+      //   password: '',
+      //   confirmPassword: ''
+      // })
 
        const handleChange = (event) => {
                  const {name, value} = event.target;
@@ -29,16 +35,50 @@ function SignUp() {
              })
               };
 
+              // const evaluatePassword = (event) => {
+              //   const {name, value} = event.target;
+              //   setError(prev => {
+              //     const stateObj = { 
+              //       ...prev, 
+              //       [name]: "" };
+
+              //       switch (name) { 
+              //         case "password":
+              //           if (!value) {
+              //             stateObj[name] = "Please enter Password.";
+              //           } else if (user.confirmPassword && value !== user.confirmPassword) {
+              //             stateObj["confirmPassword"] = "Password and Confirm Password does not match.";
+              //           } else {
+              //             stateObj["confirmPassword"] = user.confirmPassword ? "" : user.confirmPassword;
+              //           }
+              //           break;
+               
+              //         case "confirmPassword":
+              //           if (!value) {
+              //             stateObj[name] = "Please enter Confirm Password.";
+              //           } else if (user.password && value !== user.password) {
+              //             stateObj[name] = "Password and Confirm Password does not match.";
+              //           }
+              //           break;
+               
+              //         default:
+              //           break;
+              //       }
+               
+                //     return stateObj;
+                //   });
+                // }
+
               const registration = (e) =>{
                 console.log("sadfghg")
                 e.preventDefault()
                 console.log('user', user)
-                const {firstName, lastName, email, password, contactNumber, role} = user;
-                if(firstName && lastName && email && password && contactNumber && role){
+                const {firstName, lastName, email, password, contactNumber, role, confirmPassword} = user;
+                if(firstName && lastName && email && password && contactNumber && role && confirmPassword){
                     api.post("users/signUp", user)
                     .then((res)=>{
                         Swal2.fire({
-                            icon : "success",
+                            icon : res.data.status,
                             title: res.data.message
                         })
                         history.push('/logIn')
@@ -78,27 +118,33 @@ function SignUp() {
 
     <div className="col-12">
       <label htmlFor="firstName" className="form-label">Your First Name</label>
-      <input type="text" name="firstName" className="form-control" id="firstName" onChange={handleChange} required />
+      <input type="text" name="firstName" className="form-control" id="firstName" placeholder='First Name' onChange={handleChange} required />
     </div>
 
     <div className="col-12">
       <label htmlFor="lastName" className="form-label">Your Last Name</label>
-      <input type="text" name="lastName" className="form-control" id="lastName" onChange={handleChange} required />
+      <input type="text" name="lastName" className="form-control" id="lastName" placeholder='Last Name' onChange={handleChange} required />
     </div>
 
     <div className="col-12">
       <label htmlFor="yourEmail" className="form-label">Email</label>
-      <input type="email" name="email" className="form-control" id="yourEmail" onChange={handleChange} required />
+      <input type="email" name="email" className="form-control" id="yourEmail" placeholder='Email' onChange={handleChange} required />
     </div>
 
     <div className="col-12">
       <label htmlFor="yourPassword" className="form-label">Password</label>
-      <input type="password" name="password" className="form-control" id="yourPassword" onChange={handleChange} required />
+      <input type="password" name="password" className="form-control" id="yourPassword" placeholder='Password' onChange={handleChange} required />
+    </div>
+
+    <div className="col-12">
+      <label htmlFor="confirmYourPassword" className="form-label">Confirm Password</label>
+      <input type="password" name="confirmPassword" className="form-control" id="confirmYourPassword" placeholder="Please re-enter the password to confirm" onChange={handleChange} required />
+      {/* {error.confirmPassword && <span className='error'>{error.confirmPassword}</span>} */}
     </div>
 
     <div className="col-12">
       <label htmlFor="yourContact" className="form-label">Contact Number</label>
-      <input name="contactNumber" className="form-control" id="yourContact" onChange={handleChange} required />
+      <input name="contactNumber" className="form-control" id="yourContact" placeholder='Contact Number' onChange={handleChange} required />
     </div>
 
       <fieldset className="row mb-3">
@@ -163,3 +209,4 @@ function SignUp() {
 
 
 export default SignUp;
+

@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import Swal2 from "sweetalert2";
 import api from "../configApi/api";
+// import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 
 function ManageProfileAndWallet(props) {
 
@@ -16,14 +17,10 @@ function ManageProfileAndWallet(props) {
   const [profile, setProfile] = useState({
     firstName: "",
     lastName: "",
-    email: "",
-    password: "",
     contactNumber: "",
     balance: "",
     newBalance: ""
   })
-
-  // const [totalBalance, setTotalBalance] = useState();
 
   const history = useHistory();
 
@@ -40,36 +37,40 @@ function ManageProfileAndWallet(props) {
     })
   };
 
-  // const updateBalance = e => {
-  //   const {name, value} = e.target;
-  //   setTotalBalance({
-  //     totalBalance.value  + profile.balance.value,
-  //     [name]: value
-  //   })
-  // }
+  const userDetails = () => {
+    api.get(`users/details`)
+    .then((res) => { 
+      (res.data.newBalance = res.data.balance)  
+      res.data.balance = 0
+      setProfile(res.data)
+    })
+  }
+
 
   useEffect(() => {
-    api.get(`users/details`)
-    .then((res) => (res.data.newBalance = res.data.balance)  && setProfile(res.data))
+    userDetails()
   }, [])
 
 
+  // const propsPageUpdate = () => props.updatePage()
+
   const updateProfile = (e) => {
     e.preventDefault()
-    const {firstName, lastName, contactNumber, email, password, balance} = profile
-    if(firstName || lastName || contactNumber || email || password || balance){
+    const {firstName, lastName, contactNumber, balance} = profile
+    if(firstName || lastName || contactNumber || balance){
       console.log(profile)
       delete profile._id
+      delete profile.email
       delete profile.newBalance
+      delete profile.confirmPassword
       api.put(`users/manage/updateWallet`, profile)
       .then((res) => {
+        userDetails()
         Swal2.fire({
-          icon : "success",
-          // title: res.data.message
-          title: "Successfully updated!"
-      })
-      // props.updatePage()
-      // history.push('/updateWallet')
+          icon: res.data.status,
+          title: res.data.message
+        })
+      
     })
     .catch((error)=>{
         Swal2.fire({
@@ -96,12 +97,7 @@ const showStatement = () => {
         </a>
         {/* <i className="bi bi-list toggle-sidebar-btn" /> */}
         </div>
-        <div className="search-bar">
-        <form className="search-form d-flex align-items-center" method="POST" action="#">
-            <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
-            <button type="submit" title="Search"><i className="bi bi-search" /></button>
-        </form>
-        </div>
+       
 
         <nav className="header-nav ms-auto">
           <ul className="d-flex align-items-center">
@@ -153,22 +149,22 @@ const showStatement = () => {
                 <div className="card-body">
                   <div className="pt-4 pb-2">
                     <h5 className="card-title text-center pb-0 fs-4">Manage Profile and Wallet</h5>
-                    <p className="text-center small">Manage money in your wallet.</p>
                   </div>
                   <form className="row g-3 needs-validation" 
-                  onSubmit={updateProfile}
                   >
                       <hr></hr>
 
 
                       <div className="col-12 text-center pb-0 fs-4">
                       <img src="assets/img/profile-img.jpg" alt="Profile" className="rounded-circle"/>
-                      <h3>Welcome, {userName}</h3>
+                      <h3>Welcome, 
+                        {userName}
+                        </h3>
                       
                       
-                      
-                      <div className="col-12 p-3 ">
+                        <div className="col-12 p-3 ">
         <label htmlFor="name" className="form-label">Balance: {profile.newBalance} </label>
+
         {/* total amount - rent movies amount */}
       </div>
       </div>
@@ -197,7 +193,7 @@ const showStatement = () => {
        />
     </div>
 
-    <div className="col-12">
+    {/* <div className="col-12">
       <label htmlFor="yourPassword" className="form-label">Password:</label>
       <input 
       type="password" 
@@ -207,7 +203,7 @@ const showStatement = () => {
       placeholder='Enter new password'
       onChange={handleChange} 
        />
-    </div>
+    </div> */}
 
     <div className="col-12">
       <label htmlFor="yourContact" className="form-label">Contact Number:</label>
@@ -232,14 +228,18 @@ const showStatement = () => {
           onChange={handleChange} 
           placeholder='Enter amount to be added'
            />
-          <button className="btn btn-primary w-100 mt-3" type="submit">Update </button>
+          <button className="btn btn-primary w-100 mt-3" type="submit" onClick={updateProfile}
+          // updatePage={propsPageUpdate}
+          > Update </button>
+            {/* <Router>
+              <Switch>
+              <Route path="/manageProfileAndWallet" exact={true} render={() => <Redirect to ="/manageProfileAndWallet" />} />
+              </Switch>
+              </Router> */}
           </div>
           </form>
           <button className="btn btn-primary w-100 mt-3" onClick={showStatement}>Show Wallet Statement </button>
        
-
-
-                      
                       </div>
                       </div>
             </div>

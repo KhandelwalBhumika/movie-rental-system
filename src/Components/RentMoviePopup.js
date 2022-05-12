@@ -32,6 +32,10 @@ function RentMoviePopup(props) {
         })
     };
 
+
+
+
+  const propsPageRefresh = () => props.pageRefresh()
     
 
     const rentMovie = (e) => {
@@ -54,6 +58,7 @@ function RentMoviePopup(props) {
                 title: "Movie rented Succesfully"
               })
               props.updatePage()
+              props.pageRefresh()
               return
             }
             Swal2.fire({
@@ -61,7 +66,6 @@ function RentMoviePopup(props) {
               // title: res.data.message
               title: res.data.message
             })
-        // history.push('/showAllMovies')
         })
         .catch((error)=>{
             Swal2.fire({
@@ -92,8 +96,6 @@ function RentMoviePopup(props) {
       <Col md="12">
         
             <Form>
-            {/* <Row> */}
-                  {/* <Col className="pr-1" md="6"> */}
                     <Form.Group>
                       <label>How many movies do you want to rent?</label>
                       <Form.Control
@@ -101,12 +103,11 @@ function RentMoviePopup(props) {
                         onChange={handleChange}  
                         type="number" 
                         required="true"    
-                        min="1"    
+                        min="1"     
+                        defaultValue="1"
                         max={props.quantity}      
                       ></Form.Control>
                     </Form.Group>
-                {/* </Col> */}
-                {/* </Row> */}
                 </Form>
                 
                 </Col>
@@ -133,7 +134,7 @@ function RentMoviePopup(props) {
                 
 
                 <Modal.Footer>
-                <Button onClick={rentMovie}>Submit</Button>
+                <Button onClick={rentMovie} updatePage={propsPageRefresh}f>Submit</Button>
                 <Button onClick={props.onHide}>Close</Button>
                 </Modal.Footer>
                 </Modal>

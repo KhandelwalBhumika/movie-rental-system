@@ -4,8 +4,7 @@ import MovieCard from './MovieCard';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-// import UpdatingNewGenre from './UpdatingNewGenre';
-// import Wallet from './Wallet';
+// import RegisteredUsers from './RegisteredUsers';
 
 
 export function ShowAllMovies(
@@ -58,19 +57,14 @@ export function ShowAllMovies(
         </a>
         {/* <i className="bi bi-list toggle-sidebar-btn" /> */}
         </div>
-        <div className="search-bar">
-        <form className="search-form d-flex align-items-center" method="POST" action="#">
-            <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
-            <button type="submit" title="Search"><i className="bi bi-search" /></button>
-        </form>
-        </div>
-
         <nav className="header-nav ms-auto">
           <ul className="d-flex align-items-center">
             <Nav>
             <div className="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" className="rounded-circle" />
-            <NavDropdown title={userName}>
+            <NavDropdown 
+            title={userName}
+            >
             <NavDropdown.Item onClick={logOut}>
               <span className="d-none d-md-block ps-2">Log Out</span>
             </NavDropdown.Item>
@@ -89,10 +83,6 @@ export function ShowAllMovies(
 
 
         {/* Body */}
-
-      {/* <main id="main" className="main"> */}
-
-            
 
       <h1>Movies</h1>
 
@@ -120,6 +110,11 @@ export function ShowAllMovies(
 
         { isAdmin && <a href="/UserRentedList" className="btn btn-primary w-40 p-2 m-3">Show User Rented List</a> }
 
+        { isAdmin && <a href="/registeredUsers" className="btn btn-primary w-40 p-2 m-3">Show All Registered Users</a> }
+
+         <a href="/returnMovie" className="btn btn-primary w-40 p-2 m-3">Return Movie</a> 
+
+
 
         <Breadcrumb className='m-4'>
           <Breadcrumb.Item href="/logIn" >LogIn</Breadcrumb.Item>
@@ -128,15 +123,13 @@ export function ShowAllMovies(
 
         <hr></hr>
         <section className="section row p-5 ">
+
             {
             movies.map(movies =>
                 <MovieCard key={movies._id} {...movies} pageRefresh={filter} />)
             }
+
         </section>
-
-      {/* </main> */}
-        
-
 
 
 

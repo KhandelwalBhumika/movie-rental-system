@@ -31,9 +31,7 @@ function DeletePopUp(props) {
                 // history.push('/showAllMovies')
             })
             .catch((error)=>{
-                // this.errors = error.response.data.errors;
                 Swal2.fire({
-                    // icon : "error",
                     icon: "error",
                     title : error.message
                 })

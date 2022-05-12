@@ -8,7 +8,7 @@ import {
   Row,
   Col,
   } from "react-bootstrap";
-  // import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+  import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
   import Swal2 from "sweetalert2";
   import api from "../configApi/api";
 
@@ -163,11 +163,11 @@ function EditMovies(props) {
                   </button>
 
 
-                     {/* <Router>
+                    <Router>
                     <Switch>
                     <Route path="/editMovies" exact={true} render={() => <Redirect to ="/showAllMovies" />} />
                     </Switch>
-                    </Router>  */}
+                    </Router> 
 
                     </Row>
                 </Form>

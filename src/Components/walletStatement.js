@@ -39,12 +39,7 @@ function walletStatement() {
             <span className="d-none d-lg-block">Bingedd!!!</span>
         </a>
         </div>
-        <div className="search-bar">
-        <form className="search-form d-flex align-items-center" method="POST" action="#">
-            <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
-            <button type="submit" title="Search"><i className="bi bi-search" /></button>
-        </form>
-        </div>
+       
 
         <nav className="header-nav ms-auto">
           <ul className="d-flex align-items-center">
@@ -95,7 +90,8 @@ function walletStatement() {
           <tr>
              <th scope="col">Time</th>
              <th scope="col">Transaction Type</th>
-             {/* <th scope="col">Details</th> */}
+             <th scope="col">Movie Rented</th>
+             <th scope="col">Details</th>
              <th scope="col">Balance</th>
            </tr>
          </thead>

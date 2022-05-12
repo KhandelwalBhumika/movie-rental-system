@@ -36,6 +36,7 @@ function AddMovies(props) {
         const {name, releaseDate, genre, description, price, quantity} = movie;
         console.log('movie', movie)
         if(name && releaseDate &&  genre && description && price && quantity){
+          console.log("here");
             api.post("movies/admin/create", movie )
             .then((res)=>{
               Swal2.fire({
@@ -81,12 +82,7 @@ function AddMovies(props) {
         </a>
         {/* <i className="bi bi-list toggle-sidebar-btn" /> */}
         </div>
-        <div className="search-bar">
-        <form className="search-form d-flex align-items-center" method="POST" action="#">
-            <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
-            <button type="submit" title="Search"><i className="bi bi-search" /></button>
-        </form>
-        </div>
+       
 
         <nav className="header-nav ms-auto">
           <ul className="d-flex align-items-center">
@@ -115,13 +111,9 @@ function AddMovies(props) {
 
 
     {/* BODY */}
-    {/* <main> */}
-    <div className="container">
-      {/* <main></main> */}
-        <div className='min-vh-100 d-flex flex-column py-4'>
-    
-            
 
+           <div className="container">
+           <div className='min-vh-100 d-flex flex-column py-4'>
       <section className="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
       
       <Breadcrumb className='m-4'>
@@ -156,7 +148,6 @@ function AddMovies(props) {
           <div className="col-12">
             <label htmlFor="genre" className="form-label">Genre</label>
                   <div className="col-sm-10">
-                     {/* <span>{selectedOption}</span> */}
                         <select
                         type="text"
                         name='genre'
@@ -165,6 +156,7 @@ function AddMovies(props) {
                         aria-label="Floating label select example"
                         onChange={handleChange}
                         >
+                          <option value="" default>--Select one--</option>
                         {genreOptions.map((value) => <option key={[value]} >{value}</option>)}
                         </select>
                   </div> 

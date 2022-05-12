@@ -1,54 +1,68 @@
 import React, {useState, useEffect} from 'react';
 import api from '../configApi/api';
 import ShowAllUsers from './ShowAllUsers';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
+import { useHistory } from 'react-router-dom';
+import { Nav, NavDropdown } from 'react-bootstrap';
 
 
 function RegisteredUsers() {
-    const [users, setUsers] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        contactNumber: ""
-    });
+
+    const [users, setUsers] = useState([]);
+
+    const userName = localStorage.getItem('name')
+
+    const history = useHistory();
 
     useEffect(() => {
         api.get("users/")
-        .then(res => setUsers(res.data.data))
-        return setUsers
+        .then((res) => {setUsers(res.data)
+          console.log(res.data)
+        })
       }, [])
+
+
+      const logOut = () => {
+        localStorage.clear()
+        history.push('/logIn');
+      }
+
+      const manageProfile = () => {
+        history.push('/manageProfileAndWallet')
+      }
 
   return (
       <>
 
-      {/* <!-- ======= Header ======= --> */}
+      
+    {/* <!-- ======= Header ======= --> */}
     <header id="header" className="header fixed-top d-flex align-items-center">
             <div className="d-flex align-items-center justify-content-between">
         <a href="index.html" className="logo d-flex align-items-center">
             <span className="d-none d-lg-block">Bingedd!!!</span>
         </a>
-        <i className="bi bi-list toggle-sidebar-btn" />
+        {/* <i className="bi bi-list toggle-sidebar-btn" /> */}
         </div>
-        <div className="search-bar">
-        <form className="search-form d-flex align-items-center" method="POST" action="#">
-            <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
-            <button type="submit" title="Search"><i className="bi bi-search" /></button>
-        </form>
-        </div>
-
-                <nav className="header-nav ms-auto">
-        <ul className="d-flex align-items-center">
-        <div className="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
+        <nav className="header-nav ms-auto">
+          <ul className="d-flex align-items-center">
+            <Nav>
+            <div className="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" className="rounded-circle" />
-            <span className="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-           
+            <NavDropdown 
+            title={userName}
+            >
+            <NavDropdown.Item onClick={logOut}>
+              <span className="d-none d-md-block ps-2">Log Out</span>
+            </NavDropdown.Item>
+            <NavDropdown.Item>
+              <a href='/wallet' className="d-none d-md-block ps-2 " onClick={manageProfile}><span>Manage Profile and Wallet</span>
+              </a>
+            </NavDropdown.Item>
+            </NavDropdown>
             </div>
-            
-
-          {/* <!-- End Profile Iamge Icon --> */}
-            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            </ul>
-            </ul>
+            </Nav>
+          </ul>
         </nav>
     </header>
     {/* <!-- ======= Header ======= --> */}
@@ -58,10 +72,18 @@ function RegisteredUsers() {
 
 
 
+          
+
       <section className="section row">
             <div className="card">
     <div className="card-body">
+    <h5 className="card-title">List of all the registered users.</h5>
       <h5 className="card-title">List of all the registered users.</h5>
+      <Breadcrumb className='m-4'>
+             <Breadcrumb.Item href="/logIn" >LogIn</Breadcrumb.Item>
+             <Breadcrumb.Item href="/showAllMovies"> Show All Movies</Breadcrumb.Item>
+             <Breadcrumb.Item href="/registeredUsers" active> Show All Registered Users</Breadcrumb.Item>
+          </Breadcrumb>
       <hr></hr>
        <table className="table table-striped">
         <thead>
@@ -74,13 +96,12 @@ function RegisteredUsers() {
         </thead>
 
         <tbody>
-        {
-            users.map ((users) =>
-                {
-                <ShowAllUsers key={users._id} {...users} 
-                />
-                })
-            }
+            {
+                 users.map(users => 
+                    <ShowAllUsers 
+                    key={users._id} {...users} />
+                    )
+             }
             </tbody>
         </table> 
        </div>
@@ -108,4 +129,4 @@ function RegisteredUsers() {
   )
 }
 
-export default RegisteredUsers
+export default RegisteredUsers;

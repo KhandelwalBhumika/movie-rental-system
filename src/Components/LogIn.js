@@ -132,9 +132,7 @@ function LogIn(props) {
              history.push('/showAllMovies')
             }
             // <Router history={history}>...</Router>
-           
                 // setLoggedin("/showAllMovies")
-                
           })
             .catch((error)=>{
                 Swal2.fire({
@@ -179,7 +177,7 @@ function LogIn(props) {
                   >
 
                     <div className="col-12">
-                      <label className="form-label">Email</label>
+                      <label className="form-label">Email:</label>
                       <div className="input-group has-validation">
                         <span className="input-group-text" id="inputGroupPrepend">@</span>
                         <input 
@@ -192,14 +190,14 @@ function LogIn(props) {
                         //     {...register('email')} 
                         // className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                         onChange={handleChange}
-                        required
+                        required="true"
                         />
                         {/* <div className="invalid-feedback">Please enter your email.</div> */}
                       </div>
                     </div>
 
                     <div className="col-12">
-                      <label className="form-label">Password</label>
+                      <label className="form-label">Password:</label>
                       <input 
                         placeholder="Password"
                         name="password"
@@ -207,7 +205,8 @@ function LogIn(props) {
                         type="password"
                         onChange={handleChange}
                       className="form-control" 
-                      required/>
+                      required='true'
+                      />
                     </div>
 
                     <div className="col-12">

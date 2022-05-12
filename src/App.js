@@ -1,7 +1,6 @@
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import React from 'react';
-// import * as ReactDOM from "react-dom";
 import ProtectedRoute from './Components/isAuth';
 import './Components/style.css';
 import LogIn from './Components/LogIn';
@@ -12,7 +11,8 @@ import AddMovies from './Components/AddMovies';
 import walletStatement from './Components/walletStatement';
 import UserRentedList from './Components/UserRentedList';
 import ManageProfileAndWallet from './Components/ManageProfileAndWallet';
-// import RegisteredUsers from './Components/RegisteredUsers';
+import RegisteredUsers from './Components/RegisteredUsers';
+import ReturnMovie from './Components/ReturnMovie';
 
 
 
@@ -35,7 +35,8 @@ return(
       <ProtectedRoute exact path="/manageProfileAndWallet" component={ManageProfileAndWallet} />
       <ProtectedRoute exact path='/walletStatement' component={walletStatement} />
       <ProtectedRoute exact path="/userRentedList" component={UserRentedList} />
-      {/* <ProtectedRoute exact path="/registeredUsers" component={RegisteredUsers} /> */}
+      <ProtectedRoute exact path="/registeredUsers" component={RegisteredUsers} />
+      <ProtectedRoute exact path="/returnMovie" component={ReturnMovie} />
       <Route exact path="" component={LogIn} />
     </Switch>
   </Router>
