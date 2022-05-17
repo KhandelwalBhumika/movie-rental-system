@@ -5,21 +5,19 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
- function userRentedList() {
+ function UserRentedList() {
 
 
-  const history = useHistory();
+          const history = useHistory();
 
-  const userName = localStorage.getItem('name')
+          const userName = localStorage.getItem('name')
 
         const[rentList, setRentList] = useState([])
 
-        // const[movies, setMovies] = useState([])
-
         useEffect(() => {
-            api.get("movies/rent-movie/list/")
-            .then((res) => setRentList(res.data.data))
-            console.log('', rentList)
+              api.get("movies/rent-movie/list/")
+              .then((res) => setRentList(res.data.data))
+              console.log('rentList', rentList)
           }, [])
 
           const logOut = () => {
@@ -27,6 +25,10 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
             history.push('/logIn');
           }
 
+          const manageProfile = () => {
+            history.push('/manageProfileAndWallet')
+          }
+          
           
   return (
     <>
@@ -48,6 +50,10 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
             <NavDropdown title={userName}>
             <NavDropdown.Item onClick={logOut}>
             <span className="d-none d-md-block ps-2">Log Out</span>
+            </NavDropdown.Item>
+            <NavDropdown.Item>
+              <a href='/wallet' className="d-none d-md-block ps-2 " onClick={manageProfile}><span>Manage Profile and Wallet</span>
+              </a>
             </NavDropdown.Item>
             </NavDropdown>
             </div>
@@ -103,11 +109,6 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
             </section> 
 
 
-
-
-
-
-
            {/* <!-- ======= Footer ======= --> */}
   <footer className="footer">
   <div className="copyright">
@@ -122,4 +123,4 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
   )
 }
 
-export default userRentedList;
+export default UserRentedList;

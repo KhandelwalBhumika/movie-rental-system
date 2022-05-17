@@ -6,7 +6,7 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import api from "../configApi/api";
 import WalletDetails from './WalletDetails';
 
-function walletStatement() {
+function WalletStatement() {
 
     const [info, setInfo] = useState([])
 
@@ -127,4 +127,4 @@ function walletStatement() {
   )
 }
 
-export default walletStatement;
+export default WalletStatement;

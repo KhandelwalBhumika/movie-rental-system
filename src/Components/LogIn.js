@@ -32,8 +32,6 @@ function LogIn(props) {
         password: ""
     })
 
-
-
     const handleChange = (event) => {
         const {name, value} = event.target;
         setUser({
@@ -117,8 +115,6 @@ function LogIn(props) {
       const responseSuccessGoogle = (response) => {
         console.log('responseSuccessGoogle', response)
           api.post("users/google", response.profileObj)
-          // .then(res => {
-          //   console.log("Google login success", res);
             .then((res)=>{  
               console.log('res', res);
               Swal2.fire({
@@ -129,15 +125,14 @@ function LogIn(props) {
               localStorage.setItem('name', res.data.name)
               localStorage.setItem('token', res.data.token)
               localStorage.setItem('role', res.data.role)
-             history.push('/showAllMovies')
+                history.push('/showAllMovies')
             }
-            // <Router history={history}>...</Router>
-                // setLoggedin("/showAllMovies")
+                console.log('name', res.data.name)
+                console.log(res.data.firstName + res.data.firstName, res.data.givenName + res.data.familyName)
           })
             .catch((error)=>{
                 Swal2.fire({
                     icon : "error",
-                    // title : error.response.data.message
                     title: error.message
                 })
             })

@@ -20,15 +20,15 @@ export function ShowAllMovies(
     const[selectedOption, setSelectedOption] = useState("")
 
     const filter = (args={}) => {
-      api.get(`movies/?genre=${args.genre || ''}`)
-        .then(res => setMovies(res.data.data))
+      console.log('args', args)
+      api.get(`movies?genre=${args.genre || ''}`)
+      .then(res => setMovies(res.data.data))
     }
 
-        useEffect(() => {
-            filter()
-          }, [])
+        useEffect(() => filter(), [])
 
         const handleChange = (event) => {
+          console.log('//////////////////////', event.target)
           setSelectedOption(event.target.value);
           // console.log(`Option selected:`, selectedOption, name, value, selectedOption.target.value);
           filter({ genre: event.target.value })
@@ -88,7 +88,7 @@ export function ShowAllMovies(
 
       <h2 className='p-2'>All Movies</h2>
 
-              <div className="form-floating mb-3 justify-content-center m-3">
+      <div className="form-floating mb-3 justify-content-center m-3">
           <select className="form-select w-50" id="floatingSelect" aria-label="Floating label select example" onChange={handleChange} name="genre" value={selectedOption}>
             <option value="">--Select one--</option>
                       <option value="chill">chill</option>
@@ -106,13 +106,14 @@ export function ShowAllMovies(
           </div>
 
 
+
         { isAdmin && <a href="/addMovies" className="btn btn-primary w-40 p-2 m-3">Add Movie</a> }
 
-        { isAdmin && <a href="/UserRentedList" className="btn btn-primary w-40 p-2 m-3">Show User Rented List</a> }
+        { isAdmin && <a href="/userRentedList" className="btn btn-primary w-40 p-2 m-3">Show User Rented List</a> }
 
         { isAdmin && <a href="/registeredUsers" className="btn btn-primary w-40 p-2 m-3">Show All Registered Users</a> }
 
-         <a href="/returnMovie" className="btn btn-primary w-40 p-2 m-3">Return Movie</a> 
+        { !isAdmin && <a href="/returnMovie" className="btn btn-primary w-40 p-2 m-3">Rented Movie List</a> }
 
 
 

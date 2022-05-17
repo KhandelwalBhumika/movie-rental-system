@@ -4,6 +4,8 @@ import api from "../configApi/api";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+// import * as yup from 'yup';
+import {addMovieSchema} from './Validation/ValidationSchema'
 
 function AddMovies(props) {
 
@@ -36,13 +38,13 @@ function AddMovies(props) {
         const {name, releaseDate, genre, description, price, quantity} = movie;
         console.log('movie', movie)
         if(name && releaseDate &&  genre && description && price && quantity){
-          console.log("here");
+          // console.log("here");
             api.post("movies/admin/create", movie )
             .then((res)=>{
               Swal2.fire({
-                icon : "success",
-                title: "Successfully updated!"
-            })
+                  icon : res.data.status,
+                  title: res.data.message
+              })
             if (res.data.role && res.data.token) {
                 localStorage.getItem("role", res.data.role);
                 localStorage.getItem("token", res.data.token);
@@ -52,7 +54,7 @@ function AddMovies(props) {
             .catch((error)=>{
               Swal2.fire({
                   icon : "error",
-                  title : error.response.data.message
+                  text: error.response.data.message
               })
             })
         }
@@ -155,6 +157,7 @@ function AddMovies(props) {
                         id="genre" 
                         aria-label="Floating label select example"
                         onChange={handleChange}
+                        required
                         >
                           <option value="" default>--Select one--</option>
                         {genreOptions.map((value) => <option key={[value]} >{value}</option>)}

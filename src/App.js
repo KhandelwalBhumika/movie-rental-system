@@ -8,7 +8,7 @@ import ShowAllMovies from "./Components/ShowAllMovies";
 import EditMovies from './Components/EditMovies';
 import SignUp from './Components/SignUp';
 import AddMovies from './Components/AddMovies';
-import walletStatement from './Components/walletStatement';
+import WalletStatement from './Components/WalletStatement';
 import UserRentedList from './Components/UserRentedList';
 import ManageProfileAndWallet from './Components/ManageProfileAndWallet';
 import RegisteredUsers from './Components/RegisteredUsers';
@@ -16,10 +16,7 @@ import ReturnMovie from './Components/ReturnMovie';
 
 
 
-
-
 function App() {
-  
 
 return(
   <>
@@ -33,7 +30,7 @@ return(
       <ProtectedRoute exact path="/addMovies" component={AddMovies} />
       <ProtectedRoute exact path="/showAllMovies" component={ShowAllMovies} />
       <ProtectedRoute exact path="/manageProfileAndWallet" component={ManageProfileAndWallet} />
-      <ProtectedRoute exact path='/walletStatement' component={walletStatement} />
+      <ProtectedRoute exact path='/walletStatement' component={WalletStatement} />
       <ProtectedRoute exact path="/userRentedList" component={UserRentedList} />
       <ProtectedRoute exact path="/registeredUsers" component={RegisteredUsers} />
       <ProtectedRoute exact path="/returnMovie" component={ReturnMovie} />

@@ -5,21 +5,22 @@ import api from "../configApi/api";
 import { Nav, NavDropdown } from 'react-bootstrap';
 import ReturnMovieDetails from './ReturnMovieDetails';
 
+
 function ReturnMovie() {
 
     const userName = localStorage.getItem('name')
-
 
     const history = useHistory();
 
     const[rentList, setRentList] = useState([])
 
-        useEffect(() => {
-            api.get("movies/rent-movie/list/")
+      const listing = () => {
+        api.get("movies/rent-movie/list/")
             .then((res) => {setRentList(res.data.data)
-            console.log(  "asdadad......................",res)})
-            // console.log( "res.data", res)
-          }, [])
+            console.log("res", res)})
+      }
+
+      useEffect(() => listing(), [])
 
     const logOut = () => {
         localStorage.clear()
@@ -29,6 +30,7 @@ function ReturnMovie() {
       const manageProfile = () => {
         history.push('/manageProfileAndWallet')
       }
+
   return (
       <>
 
@@ -68,12 +70,12 @@ function ReturnMovie() {
     <section className="section row">
             <div className="card">
     <div className="card-body">
-    <h5 className="card-title">Return Movie</h5>
-    <h5 className="card-title">Return Movie</h5>
+    <h5 className="card-title">Rented Movie List</h5>
+    <h5 className="card-title">Rented Movie List</h5>
       <Breadcrumb className='m-4'>
              <Breadcrumb.Item href="/logIn" >LogIn</Breadcrumb.Item>
              <Breadcrumb.Item href="/showAllMovies"> Show All Movies</Breadcrumb.Item>
-             <Breadcrumb.Item href="/returnMovie" active> Return Movie</Breadcrumb.Item>
+             <Breadcrumb.Item href="/returnMovie" active> Rented Movie List</Breadcrumb.Item>
           </Breadcrumb>
       <hr></hr>
        <table className="table table-striped">
@@ -89,7 +91,9 @@ function ReturnMovie() {
             {
                 rentList.map(rentList =>
                 <ReturnMovieDetails
-                 key={rentList._id} {...rentList} />)
+                 key={rentList._id} {...rentList} 
+                 pageRefresh={listing}
+                 />)
             }
             </tbody>
         </table> 
@@ -102,15 +106,15 @@ function ReturnMovie() {
 
 
 {/* <!-- ======= Footer ======= --> */}
-<footer id="footer" className="footer">
-        <div className="copyright">
-          © Copyright <strong><span>Bingedd!!!</span></strong>. All Rights Reserved
-        </div>
-        <div className="credits">
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-        </footer>
-        {/* <!-- End Footer --> */}
+<footer className="footer">
+  <div className="copyright">
+    © Copyright <strong><span>Bingedd!!!</span></strong>. All Rights Reserved
+  </div>
+  <div className="credits">
+    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+  </div>
+  </footer>
+  {/* <!-- End Footer --> */}
     </>
   )
 }

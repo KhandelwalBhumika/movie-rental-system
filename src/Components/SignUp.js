@@ -3,12 +3,28 @@
 import React, { useState } from 'react';
 import Swal2 from "sweetalert2";
 import api from "../configApi/api";
-// import LogIn from './LogIn';
+// import * as Yup from 'yup';
+// import {signUpSchema} from './Validation/ValidationSchema';
 import './style.css';
 import {useHistory} from 'react-router-dom';
+import Form  from 'react-bootstrap/Form';
+// import {
+//   Formik,
+//   Form,
+//   Field,
+//   ErrorMessage,
+//   FieldArray,
+//   FastField
+// } from 'formik';
+// import TextError from './TextError';
+import { useForm } from 'react-hook-form';
 
+
+
+const {Group, label, input} = {...Form}
 
 function SignUp() {
+
 
   const history = useHistory()
 
@@ -22,11 +38,6 @@ function SignUp() {
              role: ""
        })
 
-      //  const [error, setError] = useState({
-      //   password: '',
-      //   confirmPassword: ''
-      // })
-
        const handleChange = (event) => {
                  const {name, value} = event.target;
                  setUser({
@@ -34,6 +45,9 @@ function SignUp() {
                     [name]: value
              })
               };
+
+
+ 
 
               // const evaluatePassword = (event) => {
               //   const {name, value} = event.target;
@@ -69,6 +83,27 @@ function SignUp() {
                 //   });
                 // }
 
+
+              // const validationSchema = Yup.object({
+              //   firstName: Yup.string().min(2).required('Required'),
+              //   lastName: Yup.string().required('Required'),
+              //   email: Yup.string().email('Invalid email format').required('Required'),
+              //   password: Yup.string().required('Required'),
+              //   confirmPassword: Yup.string().required('Required'),
+              //   contactNumber: Yup.number().min(10).max(10).required('Required'),
+              //   role: Yup.string().required('Required')
+              // })
+
+              // const validateComments = value => {
+              //   let error
+              //   if (!value) {
+              //     error = 'Required'
+              //   }
+              //   return error
+              // }
+
+              // const [formValues, setFormValues] = useState(null)
+
               const registration = (e) =>{
                 console.log("sadfghg")
                 e.preventDefault()
@@ -86,13 +121,24 @@ function SignUp() {
                     .catch((error)=>{
                       Swal2.fire({
                           icon : "error",
-                          // title : error.message
                           text: error.response.data.message
-                          // title: "registration unsuccessfull"
                       })
                     })
                 }
               }
+
+              const { register, handleSubmit, formState: { errors } } = useForm();
+              // const onSubmit = data => console.log(data);
+              // {(!formState.isValid && formState.isSubmitted) ?
+              //   <Alert variant="danger"   >
+              //      {Object.values(formState.errors).map( (e,idx) => {
+              //        return (<p key={idx}>{e.message}</p>)
+              //      })}
+              //   </Alert>
+              //   :
+              //   <Alert variant="success">Please fill in the form</Alert>
+              //   }
+              
 
               // if(!isAuth){
               //   return <Redirect to="/logIn" />
@@ -101,6 +147,12 @@ function SignUp() {
   return (
     <>
     <main>
+    {/* <Formik
+      initialValues={formValues || user}
+      validationSchema={validationSchema}
+      onSubmit={registration}
+      enableReinitialize
+    > */}
     <div className="container">
       <section className="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div className="container">
@@ -114,41 +166,141 @@ function SignUp() {
                     <p className="text-center small">Enter your details to create account.</p>
                   </div>
 
-                  <form className="row g-3 needs-validation" onSubmit={registration}>
+                  <form className="row g-3 needs-validation" 
+                  onSubmit={registration}
+                  // {handleSubmit{registration}}
+                  // onSubmit={handleSubmit(onSubmit)}
+                  >
+                  
 
     <div className="col-12">
+      <Group>
       <label htmlFor="firstName" className="form-label">Your First Name</label>
-      <input type="text" name="firstName" className="form-control" id="firstName" placeholder='First Name' onChange={handleChange} required />
+      <input type="text" name="firstName" className="form-control" id="firstName" placeholder='First Name' 
+      {...register("firstName", { required: {
+        value: true,
+        message: "You must specify your first name before moving forward"
+    }, 
+    pattern: {
+      value: /^[a-zA-Z]+$/,
+      message: "That's not a valid name"
+    }
+    })}
+      onChange={handleChange} required />
+      {/* <ErrorMessage name='firstName' component={TextError} /> */}
+      </Group>
     </div>
 
     <div className="col-12">
+      <Group>
       <label htmlFor="lastName" className="form-label">Your Last Name</label>
-      <input type="text" name="lastName" className="form-control" id="lastName" placeholder='Last Name' onChange={handleChange} required />
+      <input type="text" name="lastName" className="form-control" id="lastName" placeholder='Last Name' 
+      {...register("lastName", {
+        required: {
+          value:true,
+          message: "Please, add your last name"
+        },
+        pattern: {
+          value: /^[a-zA-Z]+$/,
+          message: "Please enter a valid last name"
+        }, 
+        maxLength: {
+          value: 20,
+          message: "That's way too long to be a real last name, try again"
+       }
+      })}
+      onChange={handleChange} required />
+      {/* <ErrorMessage name='lastName' component={TextError} /> */}
+      </Group>
     </div>
 
     <div className="col-12">
+      <Group>
       <label htmlFor="yourEmail" className="form-label">Email</label>
-      <input type="email" name="email" className="form-control" id="yourEmail" placeholder='Email' onChange={handleChange} required />
+      <input  name="email" className="form-control" id="yourEmail" placeholder='Email'
+      {...register("email", {
+        required: {
+          value: true,
+          message: "You need to specify a valid email address"
+        }, 
+        pattern: {
+          value: /^\S+@\S+$/i,
+          message: "invalid email!"
+       }
+      })}
+      onChange={handleChange} required />
+      {/* <ErrorMessage name='email'>
+                {error => <div className='error'>{error}</div>}
+              </ErrorMessage> */}
+              </Group>
     </div>
 
     <div className="col-12">
+      <Group>
       <label htmlFor="yourPassword" className="form-label">Password</label>
-      <input type="password" name="password" className="form-control" id="yourPassword" placeholder='Password' onChange={handleChange} required />
+      <input type="password" name="password" className="form-control" id="yourPassword" placeholder='Password'
+       {...register("password", {
+        required: {
+          value: true,
+          message: "Required!"
+        }, 
+        maxLength: {
+          value: 20,
+          message: "20 characters should be more than enough!"
+        }
+      })}
+      onChange={handleChange} required />
+      {/* <ErrorMessage name='password' component={TextError}/> */}
+      </Group>
     </div>
 
     <div className="col-12">
+      <Group>
       <label htmlFor="confirmYourPassword" className="form-label">Confirm Password</label>
-      <input type="password" name="confirmPassword" className="form-control" id="confirmYourPassword" placeholder="Please re-enter the password to confirm" onChange={handleChange} required />
+      <input type="password" name="confirmPassword" className="form-control" id="confirmYourPassword" placeholder="Please re-enter the password to confirm" 
+      {...register("password", {
+        required: {
+          value: true,
+          message: "Required!"
+        }, 
+        maxLength: {
+          value: 20,
+          message: "20 characters should be more than enough!"
+        }
+      })}
+      onChange={handleChange} required />
+      {/* <ErrorMessage name='password' component={TextError}/> */}
       {/* {error.confirmPassword && <span className='error'>{error.confirmPassword}</span>} */}
+      </Group>
     </div>
 
     <div className="col-12">
-      <label htmlFor="yourContact" className="form-label">Contact Number</label>
-      <input name="contactNumber" className="form-control" id="yourContact" placeholder='Contact Number' onChange={handleChange} required />
+      <Group>
+      <label htmlFor="contactNumber" className="form-label">Contact Number</label>
+      <input name="contactNumber" className="form-control" id="contactNumber" placeholder='Contact Number'
+      {...register("contactNumber", {
+        required: {
+          value: true,
+          message: "Please add your mobile phone number, I won't call you, promise!"
+        }, 
+        pattern: {
+          value: /^[0-9+-]+$/,
+          message: "This is not a valid mobile phone to me, try again!"
+        }, 
+        minLength: {
+          value: 6,
+          message: "This number is too short, not gotta fly, try again"
+        }, 
+        maxLength: {
+          value: 12,
+          message: "...And now it's too damn long, make sure the number is right, would you?"
+        } })}
+      onChange={handleChange} required />
+      {/* <ErrorMessage name='contactNumber' component={TextError}/> */}
+      </Group>
     </div>
 
       <fieldset className="row mb-3">
-      {/* <div className="col-12"> */}
       <label>
         <legend className="col-form-label col-sm-2 " htmlFor="role"> User is: </legend>
         </label>
@@ -166,7 +318,6 @@ function SignUp() {
             </label>
           </div>
         </div>
-        {/* </div> */}
       </fieldset>
 
 
@@ -181,7 +332,9 @@ function SignUp() {
 
     <div>
       <div className="col-12">
-      <button className="btn btn-primary w-100" type="submit">Create Account</button>
+      <button className="btn btn-primary w-100" type="submit" 
+      // disabled={!formik.isValid || formik.isSubmitting}
+      >Create Account</button>
       </div>
       <div className="col-12">
       <p className="small mb-0">Already have an account? 
@@ -197,11 +350,10 @@ function SignUp() {
     </div>
   </section>
 </div>
-
-
-
+{/* </Formik> */}
 </main>
     </>
+
   )
 }
 
@@ -209,4 +361,5 @@ function SignUp() {
 
 
 export default SignUp;
+
 

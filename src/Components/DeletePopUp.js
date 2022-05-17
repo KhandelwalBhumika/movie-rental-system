@@ -27,8 +27,6 @@ function DeletePopUp(props) {
                     title: res.data.message
                 })
                 props.pageRefresh()
-                // props.updatePage()
-                // history.push('/showAllMovies')
             })
             .catch((error)=>{
                 Swal2.fire({
