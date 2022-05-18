@@ -10,7 +10,6 @@ function ManageProfileAndWallet(props) {
 
   
 
-  const userName = localStorage.getItem('name')
   
   // const userId = localStorage.getItem('_id')
 
@@ -24,6 +23,9 @@ function ManageProfileAndWallet(props) {
 
   const history = useHistory();
 
+
+const userName = localStorage.getItem('name')
+
   const logOut = () => {
     localStorage.clear()
     history.push('/logIn');
@@ -36,6 +38,8 @@ function ManageProfileAndWallet(props) {
         [name]: value
     })
   };
+
+
 
   const userDetails = () => {
     api.get(`users/details`)
@@ -52,7 +56,6 @@ function ManageProfileAndWallet(props) {
   }, [])
 
 
-  // const propsPageUpdate = () => props.updatePage()
 
   const updateProfile = (e) => {
     e.preventDefault()
@@ -70,7 +73,6 @@ function ManageProfileAndWallet(props) {
           icon: res.data.status,
           title: res.data.message
         })
-      
     })
     .catch((error)=>{
         Swal2.fire({
@@ -85,7 +87,10 @@ const showStatement = () => {
   history.push('/walletStatement')
 }
 
-    
+
+
+    const welcomeName = `${profile.firstName}  ${profile.lastName}`
+
 
   return (
     <>
@@ -121,7 +126,7 @@ const showStatement = () => {
     {/* <!-- ======= Header ======= --> */}
 
 
-    <h1>Wallet</h1>
+    <h2>Wallet</h2>
     <hr></hr>
     <h3>Manage Profile and Wallet</h3>
     <hr></hr>
@@ -150,24 +155,22 @@ const showStatement = () => {
                   <div className="pt-4 pb-2">
                     <h5 className="card-title text-center pb-0 fs-4">Manage Profile and Wallet</h5>
                   </div>
-                  <form className="row g-3 needs-validation" 
-                  >
+                  <form className="row g-3 needs-validation">
                       <hr></hr>
 
 
                       <div className="col-12 text-center pb-0 fs-4">
                       <img src="assets/img/profile-img.jpg" alt="Profile" className="rounded-circle"/>
                       <h3>Welcome, 
-                        {userName}
+                        {/* {userName} */}
+                        {welcomeName}
                         </h3>
                       
                       
-                        <div className="col-12 p-3 ">
-        <label htmlFor="name" className="form-label">Balance: {profile.newBalance} </label>
-
-        {/* total amount - rent movies amount */}
-      </div>
-      </div>
+                  <div className="col-12 p-3 ">
+                      <label htmlFor="name" className="form-label">Balance: {profile.newBalance} </label>
+                  </div>
+              </div>
 
       <div className="col-12">
       <label htmlFor="firstName" className="form-label">Your First Name:</label>
@@ -193,18 +196,6 @@ const showStatement = () => {
        />
     </div>
 
-    {/* <div className="col-12">
-      <label htmlFor="yourPassword" className="form-label">Password:</label>
-      <input 
-      type="password" 
-      name="password" 
-      className="form-control" 
-      id="yourPassword" 
-      placeholder='Enter new password'
-      onChange={handleChange} 
-       />
-    </div> */}
-
     <div className="col-12">
       <label htmlFor="yourContact" className="form-label">Contact Number:</label>
       <input 
@@ -228,9 +219,7 @@ const showStatement = () => {
           onChange={handleChange} 
           placeholder='Enter amount to be added'
            />
-          <button className="btn btn-primary w-100 mt-3" type="submit" onClick={updateProfile}
-          // updatePage={propsPageUpdate}
-          > Update </button>
+          <button className="btn btn-primary w-100 mt-3" type="submit" onClick={updateProfile}> Update </button>
             {/* <Router>
               <Switch>
               <Route path="/manageProfileAndWallet" exact={true} render={() => <Redirect to ="/manageProfileAndWallet" />} />

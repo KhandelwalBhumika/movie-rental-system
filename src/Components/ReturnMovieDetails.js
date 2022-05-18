@@ -28,7 +28,7 @@ function ReturnMovieDetails(props) {
   })
   }
 
-  let showButton = props.returnStatus == true ? '' : <button className="btn btn-primary w-40" onClick={returnSelectedMovie} updatePage={propsPageRefresh}>Return</button>
+  let showButton = props.returnStatus === true ? '' : <button className="btn btn-primary w-40" onClick={returnSelectedMovie} updatePage={propsPageRefresh}>Return</button>
 
   return (
       <>   

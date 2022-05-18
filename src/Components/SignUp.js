@@ -7,7 +7,7 @@ import api from "../configApi/api";
 // import {signUpSchema} from './Validation/ValidationSchema';
 import './style.css';
 import {useHistory} from 'react-router-dom';
-import Form  from 'react-bootstrap/Form';
+// import Form  from 'react-bootstrap/Form';
 // import {
 //   Formik,
 //   Form,
@@ -17,11 +17,11 @@ import Form  from 'react-bootstrap/Form';
 //   FastField
 // } from 'formik';
 // import TextError from './TextError';
-import { useForm } from 'react-hook-form';
+// import { useForm } from 'react-hook-form';
 
 
 
-const {Group, label, input} = {...Form}
+// const {Group, label, input} = {...Form}
 
 function SignUp() {
 
@@ -127,7 +127,7 @@ function SignUp() {
                 }
               }
 
-              const { register, handleSubmit, formState: { errors } } = useForm();
+              // const { register, handleSubmit, formState: { errors } } = useForm();
               // const onSubmit = data => console.log(data);
               // {(!formState.isValid && formState.isSubmitted) ?
               //   <Alert variant="danger"   >
@@ -174,130 +174,130 @@ function SignUp() {
                   
 
     <div className="col-12">
-      <Group>
+      {/* <Group> */}
       <label htmlFor="firstName" className="form-label">Your First Name</label>
       <input type="text" name="firstName" className="form-control" id="firstName" placeholder='First Name' 
-      {...register("firstName", { required: {
-        value: true,
-        message: "You must specify your first name before moving forward"
-    }, 
-    pattern: {
-      value: /^[a-zA-Z]+$/,
-      message: "That's not a valid name"
-    }
-    })}
+    //   {...register("firstName", { required: {
+    //     value: true,
+    //     message: "You must specify your first name before moving forward"
+    // }, 
+    // pattern: {
+    //   value: /^[a-zA-Z]+$/,
+    //   message: "That's not a valid name"
+    // }
+    // })}
       onChange={handleChange} required />
       {/* <ErrorMessage name='firstName' component={TextError} /> */}
-      </Group>
+      {/* </Group> */}
     </div>
 
     <div className="col-12">
-      <Group>
+      {/* <Group> */}
       <label htmlFor="lastName" className="form-label">Your Last Name</label>
       <input type="text" name="lastName" className="form-control" id="lastName" placeholder='Last Name' 
-      {...register("lastName", {
-        required: {
-          value:true,
-          message: "Please, add your last name"
-        },
-        pattern: {
-          value: /^[a-zA-Z]+$/,
-          message: "Please enter a valid last name"
-        }, 
-        maxLength: {
-          value: 20,
-          message: "That's way too long to be a real last name, try again"
-       }
-      })}
+      // {...register("lastName", {
+      //   required: {
+      //     value:true,
+      //     message: "Please, add your last name"
+      //   },
+      //   pattern: {
+      //     value: /^[a-zA-Z]+$/,
+      //     message: "Please enter a valid last name"
+      //   }, 
+      //   maxLength: {
+      //     value: 20,
+      //     message: "That's way too long to be a real last name, try again"
+      //  }
+      // })}
       onChange={handleChange} required />
       {/* <ErrorMessage name='lastName' component={TextError} /> */}
-      </Group>
+      {/* </Group> */}
     </div>
 
     <div className="col-12">
-      <Group>
+      {/* <Group> */}
       <label htmlFor="yourEmail" className="form-label">Email</label>
       <input  name="email" className="form-control" id="yourEmail" placeholder='Email'
-      {...register("email", {
-        required: {
-          value: true,
-          message: "You need to specify a valid email address"
-        }, 
-        pattern: {
-          value: /^\S+@\S+$/i,
-          message: "invalid email!"
-       }
-      })}
+      // {...register("email", {
+      //   required: {
+      //     value: true,
+      //     message: "You need to specify a valid email address"
+      //   }, 
+      //   pattern: {
+      //     value: /^\S+@\S+$/i,
+      //     message: "invalid email!"
+      //  }
+      // })}
       onChange={handleChange} required />
       {/* <ErrorMessage name='email'>
                 {error => <div className='error'>{error}</div>}
               </ErrorMessage> */}
-              </Group>
+              {/* </Group> */}
     </div>
 
     <div className="col-12">
-      <Group>
+      {/* <Group> */}
       <label htmlFor="yourPassword" className="form-label">Password</label>
       <input type="password" name="password" className="form-control" id="yourPassword" placeholder='Password'
-       {...register("password", {
-        required: {
-          value: true,
-          message: "Required!"
-        }, 
-        maxLength: {
-          value: 20,
-          message: "20 characters should be more than enough!"
-        }
-      })}
+      //  {...register("password", {
+      //   required: {
+      //     value: true,
+      //     message: "Required!"
+      //   }, 
+      //   maxLength: {
+      //     value: 20,
+      //     message: "20 characters should be more than enough!"
+      //   }
+      // })}
       onChange={handleChange} required />
       {/* <ErrorMessage name='password' component={TextError}/> */}
-      </Group>
+      {/* </Group> */}
     </div>
 
     <div className="col-12">
-      <Group>
+      {/* <Group> */}
       <label htmlFor="confirmYourPassword" className="form-label">Confirm Password</label>
       <input type="password" name="confirmPassword" className="form-control" id="confirmYourPassword" placeholder="Please re-enter the password to confirm" 
-      {...register("password", {
-        required: {
-          value: true,
-          message: "Required!"
-        }, 
-        maxLength: {
-          value: 20,
-          message: "20 characters should be more than enough!"
-        }
-      })}
+      // {...register("password", {
+      //   required: {
+      //     value: true,
+      //     message: "Required!"
+      //   }, 
+      //   maxLength: {
+      //     value: 20,
+      //     message: "20 characters should be more than enough!"
+      //   }
+      // })}
       onChange={handleChange} required />
       {/* <ErrorMessage name='password' component={TextError}/> */}
       {/* {error.confirmPassword && <span className='error'>{error.confirmPassword}</span>} */}
-      </Group>
+      {/* </Group> */}
     </div>
 
     <div className="col-12">
-      <Group>
+      {/* <Group> */}
       <label htmlFor="contactNumber" className="form-label">Contact Number</label>
       <input name="contactNumber" className="form-control" id="contactNumber" placeholder='Contact Number'
-      {...register("contactNumber", {
-        required: {
-          value: true,
-          message: "Please add your mobile phone number, I won't call you, promise!"
-        }, 
-        pattern: {
-          value: /^[0-9+-]+$/,
-          message: "This is not a valid mobile phone to me, try again!"
-        }, 
-        minLength: {
-          value: 6,
-          message: "This number is too short, not gotta fly, try again"
-        }, 
-        maxLength: {
-          value: 12,
-          message: "...And now it's too damn long, make sure the number is right, would you?"
-        } })}
+      // {...register("contactNumber", {
+      //   required: {
+      //     value: true,
+      //     message: "Please add your mobile phone number, I won't call you, promise!"
+      //   }, 
+      //   pattern: {
+      //     value: /^[0-9+-]+$/,
+      //     message: "This is not a valid mobile phone to me, try again!"
+      //   }, 
+      //   minLength: {
+      //     value: 6,
+      //     message: "This number is too short, not gotta fly, try again"
+      //   }, 
+      //   maxLength: {
+      //     value: 12,
+      //     message: "...And now it's too damn long, make sure the number is right, would you?"
+      //   } })}
       onChange={handleChange} required />
       {/* <ErrorMessage name='contactNumber' component={TextError}/> */}
-      </Group>
+      {/* </Group> */}
     </div>
 
       <fieldset className="row mb-3">

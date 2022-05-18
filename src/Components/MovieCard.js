@@ -15,18 +15,14 @@ function MovieCard(props) {
     const [rentModalShow, setRentModalShow] = useState(false)
 
     const isAdmin = localStorage.getItem('role') === 'admin'
-
-
-
-
-
+    
   const propsPageRefresh = () => props.pageRefresh()
 
     
   return (
     <>
-
-         <div className="align-items-top col-4">
+          
+         <div className="align-items-top col-4" id='container'>
                      <img src={images} className="card-img-top" alt="..." />
                      <div className="card-body p-2" style={{backgroundColor: 'white'}}>
                         
@@ -88,7 +84,6 @@ function MovieCard(props) {
                          
                   </div>
         </div>
-        
         
           </>
   )

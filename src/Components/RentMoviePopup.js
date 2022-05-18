@@ -13,15 +13,9 @@ import Swal2 from "sweetalert2";
 
 function RentMoviePopup(props) {
 
-
-  // const history = useHistory();
-
-
     const[movie, setMovie] = useState({
         quantity: 1
     });
-
-
 
     const handleChange = event =>{
         const {name, value} = event.target;
@@ -31,8 +25,6 @@ function RentMoviePopup(props) {
             [name]: value
         })
     };
-
-
 
 
   const propsPageRefresh = () => props.pageRefresh()

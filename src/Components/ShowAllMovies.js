@@ -4,12 +4,15 @@ import MovieCard from './MovieCard';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-// import RegisteredUsers from './RegisteredUsers';
+import Pagination from 'react-bootstrap-4-pagination';
+// import ReactDOM from 'react-dom';
+// import ReactPaginate from 'react-paginate';
+
 
 
 export function ShowAllMovies(
-    // {authorized}
     ) {
+
 
       const history = useHistory();
 
@@ -19,20 +22,34 @@ export function ShowAllMovies(
 
     const[selectedOption, setSelectedOption] = useState("")
 
+    const [searchOption, setSearchOption] = useState("")
+
+    const [pagination, setPagination] = useState({
+      totalPages: 5,
+      currentPage: 1,
+      showMax: 6,
+      size: "md",
+      threeDots: true,
+      prevNext: true
+    })
+
     const filter = (args={}) => {
       console.log('args', args)
-      api.get(`movies?genre=${args.genre || ''}`)
+      api.get(`movies?genre=${args.genre || ''}&search=${args.search || ''}&limit=${args.limit || 6}&skip=${args.skip || 0}`)
       .then(res => setMovies(res.data.data))
     }
 
         useEffect(() => filter(), [])
 
         const handleChange = (event) => {
-          console.log('//////////////////////', event.target)
           setSelectedOption(event.target.value);
-          // console.log(`Option selected:`, selectedOption, name, value, selectedOption.target.value);
           filter({ genre: event.target.value })
         };
+
+        const handleSearch = (event) => {
+          setSearchOption(event.target.value);
+          filter({search: event.target.value})
+        }
 
         const logOut = () => {
           localStorage.clear()
@@ -45,6 +62,7 @@ export function ShowAllMovies(
 
     const isAdmin = localStorage.getItem('role') === 'admin'
 
+
   return (
     <>
 
@@ -55,8 +73,15 @@ export function ShowAllMovies(
         <a href="index.html" className="logo d-flex align-items-center">
             <span className="d-none d-lg-block">Bingedd!!!</span>
         </a>
-        {/* <i className="bi bi-list toggle-sidebar-btn" /> */}
         </div>
+
+        <div className="search-bar">
+          <form className="search-form d-flex align-items-center" method="GET" action="#" pageRefresh={filter}>
+            <input type="search" placeholder="search" title="Enter search keyword" onChange={handleSearch} name="search" value={searchOption}/>
+            <button type='submit' title="search"><i className="bi bi-search" onClick={searchOption}></i></button>
+          </form>
+        </div>
+
         <nav className="header-nav ms-auto">
           <ul className="d-flex align-items-center">
             <Nav>
@@ -105,8 +130,6 @@ export function ShowAllMovies(
           <label htmlFor="floatingSelect" >Filter (By Genre):</label>
           </div>
 
-
-
         { isAdmin && <a href="/addMovies" className="btn btn-primary w-40 p-2 m-3">Add Movie</a> }
 
         { isAdmin && <a href="/userRentedList" className="btn btn-primary w-40 p-2 m-3">Show User Rented List</a> }
@@ -124,11 +147,18 @@ export function ShowAllMovies(
 
         <hr></hr>
         <section className="section row p-5 ">
-
             {
             movies.map(movies =>
                 <MovieCard key={movies._id} {...movies} pageRefresh={filter} />)
             }
+
+            <div className="section row p-5 d-flex justify-content-center">
+              <Pagination {...pagination} 
+                  onClick={function (page) {
+                  pagination.currentPage = page
+                  filter({ skip: ((page -1) * 6) })
+                  }} />
+            </div>
 
         </section>
 

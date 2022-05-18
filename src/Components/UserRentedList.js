@@ -17,7 +17,6 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
         useEffect(() => {
               api.get("movies/rent-movie/list/")
               .then((res) => setRentList(res.data.data))
-              console.log('rentList', rentList)
           }, [])
 
           const logOut = () => {

@@ -142,13 +142,6 @@ function LogIn(props) {
         const responseErrorGoogle = (response) => {
           console.log(response)
         }
-  
-
-
-
-
-
-
 
   return (
     <> 
@@ -204,12 +197,12 @@ function LogIn(props) {
                       />
                     </div>
 
-                    <div className="col-12">
+                    {/* <div className="col-12">
                       <div className="form-check">
                         <input className="form-check-input" type="checkbox" name="remember" value="true"/>
                         <label className="form-check-label" >Remember me</label>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col-12">
                       <button
                       className="btn btn-primary w-100" type="submit" 
@@ -280,17 +273,6 @@ function LogIn(props) {
   </main>
 
 
-
- {/* <!-- ======= Footer ======= --> */}
- <footer id="footer" className="footer">
-  <div className="copyright">
-    © Copyright <strong><span>Bingedd!!!</span></strong>. All Rights Reserved
-  </div>
-  <div className="credits">
-    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-  </div>
-  </footer>
-  {/* <!-- End Footer --> */}
     </>
   )
 }

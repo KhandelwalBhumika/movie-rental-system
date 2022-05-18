@@ -4,8 +4,8 @@ import api from "../configApi/api";
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-// import * as yup from 'yup';
-import {addMovieSchema} from './Validation/ValidationSchema'
+// // import * as yup from 'yup';
+// import {addMovieSchema} from './Validation/ValidationSchema'
 
 function AddMovies(props) {
 
@@ -16,6 +16,16 @@ function AddMovies(props) {
 
   const userName = localStorage.getItem('name')
 
+    //   const movie = {
+    //       name: "",
+    //     releaseDate: "",
+    //     genre: "",
+    //     description: "",
+    //     price: "",
+    //     quantity: ""}
+
+    //  const [formValues, setFormValues] =useState(movie)
+        
     const [movie, setMovie] = useState({
         name: "",
         releaseDate: "",
@@ -25,6 +35,10 @@ function AddMovies(props) {
         quantity: ""
     })
 
+    // const [formErrors, setFormErrors] = useState({});
+    // const [isSubmit, setIsSubmit] = useState(false);
+
+
     const handleChange = event =>{
         const {name, value} = event.target;
         setMovie({
@@ -32,6 +46,21 @@ function AddMovies(props) {
             [name]: value
         })
     };
+
+
+    // const handleChange = (e) => {
+    //   const { name, value } = e.target;
+    //   setFormValues({ ...formValues, [name]: value });
+    // };
+
+
+
+    // const handleSubmit = (e) => {
+    //   e.preventDefault();
+    //   setFormErrors(validate(formValues));
+    //   setIsSubmit(true);
+    // };
+
 
     const addingMovie = (e) =>{
         e.preventDefault()
@@ -49,7 +78,6 @@ function AddMovies(props) {
                 localStorage.getItem("role", res.data.role);
                 localStorage.getItem("token", res.data.token);
               }
-                  // history.push('/showAllMovies')
             })
             .catch((error)=>{
               Swal2.fire({
@@ -69,6 +97,38 @@ function AddMovies(props) {
         history.push('/manageProfileAndWallet')
       }
       
+
+
+      // useEffect(() => {
+      // console.log(formErrors);
+      // if (Object.keys(formErrors).length === 0 && isSubmit) {
+      //   console.log(formValues);
+      // }
+      // }, [formErrors]);
+      // const validate = (values) => {
+      //   const errors = {};
+      //   if (!values.name) {
+      //     errors.name = "name is required!";
+      //   }
+      //   if (!values.releaseDate) {
+      //     errors.releaseDate = "releaseDate is required!";
+      //   } 
+      //   if (!values.genre) {
+      //     errors.genre = "genre is required!";
+      //   }
+      //   if (!values.description) {
+      //     errors.description = "description is required!";
+      //   }
+      //   if (!values.quantity) {
+      //     errors.quantity = "quantity is required!";
+      //   }
+      //   if (!values.price) {
+      //     errors.price = "price is required!";
+      //   }
+      //   return errors;
+      // };
+
+
 
 
   return (
@@ -115,6 +175,12 @@ function AddMovies(props) {
     {/* BODY */}
 
            <div className="container">
+           {/* {Object.keys(formErrors).length === 0 && isSubmit ? (
+        <div className="ui message success">Signed in successfully</div>
+      ) : (
+        // <pre>{JSON.stringify(formValues, undefined, 2)}</pre>
+        ''
+      )} */}
            <div className='min-vh-100 d-flex flex-column py-4'>
       <section className="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
       
@@ -136,7 +202,7 @@ function AddMovies(props) {
                     <h5 className="card-title text-center pb-0 fs-4">Add Movie</h5>
                     <p className="text-center small">Enter the details to add movie.</p>
                   </div>
-                  <form className="row g-3 needs-validation">
+                  <form className="row g-3 needs-validation" onSubmit={addingMovie}>
                       <hr></hr>
 
               <div className="col-12">
@@ -146,6 +212,7 @@ function AddMovies(props) {
                 onChange={handleChange}
                 required />
               </div>
+              {/* <p>{formErrors.name}</p> */}
 
           <div className="col-12">
             <label htmlFor="genre" className="form-label">Genre</label>
@@ -164,6 +231,7 @@ function AddMovies(props) {
                         </select>
                   </div> 
                 </div>
+                {/* <p>{formErrors.genre}</p> */}
 
           <div className="col-12">
             <label htmlFor="description" className="form-label">Description</label>
@@ -172,6 +240,7 @@ function AddMovies(props) {
             onChange={handleChange}
             required />
           </div>
+          {/* <p>{formErrors.description}</p> */}
 
           <div className="col-12">
             <label htmlFor="releaseDate" className="form-label">Release Date</label>
@@ -180,6 +249,7 @@ function AddMovies(props) {
             onChange={handleChange} 
             required />
           </div>
+          {/* <p>{formErrors.releaseDate}</p> */}
 
           <div className="col-12">
             <label htmlFor="quantity" className="form-label">Quantity</label>
@@ -188,6 +258,7 @@ function AddMovies(props) {
           placeholder='quantity'
             required />
           </div>
+          {/* <p>{formErrors.quantity}</p> */}
 
           <div className="col-12">
             <label htmlFor="price" className="form-label">Price</label>
@@ -196,12 +267,15 @@ function AddMovies(props) {
           placeholder='price'
             required />
           </div>
+          {/* <p>{formErrors.price}</p> */}
 
 
             <hr></hr>
                 <div>
                   <div className="col-12">
-                  <button className="btn btn-primary w-100" type="submit" onClick={addingMovie}>Add Movie</button>
+                  <button className="btn btn-primary w-100" type="submit" 
+                  // onClick={addingMovie}
+                  >Add Movie</button>
                   </div>
                 </div>
               </form>
