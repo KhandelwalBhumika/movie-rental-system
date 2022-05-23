@@ -24,7 +24,6 @@ function ManageProfileAndWallet(props) {
   const history = useHistory();
 
 
-const userName = localStorage.getItem('name')
 
   const logOut = () => {
     localStorage.clear()
@@ -66,13 +65,16 @@ const userName = localStorage.getItem('name')
       delete profile.email
       delete profile.newBalance
       delete profile.confirmPassword
-      api.put(`users/manage/updateWallet`, profile)
+      api.put(`users/manage/updateWallet`, profile) 
       .then((res) => {
         userDetails()
         Swal2.fire({
           icon: res.data.status,
           title: res.data.message
         })
+        if(res.data.status === "success") {
+          localStorage.setItem('name', JSON.stringify(firstName + " " + lastName)).splice(0,  "")
+        }
     })
     .catch((error)=>{
         Swal2.fire({
@@ -91,6 +93,8 @@ const showStatement = () => {
 
     const welcomeName = `${profile.firstName}  ${profile.lastName}`
 
+
+const userName = localStorage.getItem('name')
 
   return (
     <>

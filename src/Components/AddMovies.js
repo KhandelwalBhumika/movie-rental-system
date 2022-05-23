@@ -53,8 +53,6 @@ function AddMovies(props) {
     //   setFormValues({ ...formValues, [name]: value });
     // };
 
-
-
     // const handleSubmit = (e) => {
     //   e.preventDefault();
     //   setFormErrors(validate(formValues));

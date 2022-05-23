@@ -152,12 +152,16 @@ export function ShowAllMovies(
                 <MovieCard key={movies._id} {...movies} pageRefresh={filter} />)
             }
 
-            <div className="section row p-5 d-flex justify-content-center">
+            <div className="section row d-flex justify-content-center">
+                <div className=' d-flex flex-column py-2'>
+                <section className="section register d-flex flex-column align-items-center justify-content-center py-2">
               <Pagination {...pagination} 
                   onClick={function (page) {
                   pagination.currentPage = page
                   filter({ skip: ((page -1) * 6) })
                   }} />
+                </section>
+                </div>
             </div>
 
         </section>
